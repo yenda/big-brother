@@ -1,0 +1,25 @@
+# Developers
+.hg
+.git
+.svn
+.idea/
+.sass-cache/
+*.db
+*.pyc
+*~
+
+# Javascript libraries
+/src/nudge/static/nudge/lib/bootstrap/*
+!/src/nudge/static/nudge/lib/bootstrap/dist
+/src/nudge/static/nudge/lib/font-awesome/*
+!/src/nudge/static/nudge/lib/font-awesome/css
+!/src/nudge/static/nudge/lib/font-awesome/fonts
+/src/nudge/static/nudge/lib/jquery/*
+!/src/nudge/static/nudge/lib/jquery/dist
+
+# Environment
+settings_local.py
+/env/
+/media/
+/static/
+

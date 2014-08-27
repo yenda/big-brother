@@ -1,0 +1,22 @@
+syntax: regexp
+
+# Developers
+^\.hg/
+^\.git/
+^\.svn/
+^\.idea/
+^\.sass-cache/
+\.db$
+\.pyc$
+\.swp$
+~$
+
+# Javascript libraries
+TODO
+
+# Environment
+settings_local.py
+^env/
+^media/
+^static/
+

@@ -1,0 +1,63 @@
+{% load staticfiles i18n%}<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
+        body {
+            font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+            font-size: 14px;
+            line-height: 1.428571429;
+            color: #333;
+        }
+        .container {
+            margin: 100px auto 0 auto;
+            width: 974px;
+            text-align: center;
+        }
+        img {
+            margin-bottom: 20px;
+        }
+        h1 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 48px;
+            font-weight: bold;
+            line-height: 1;
+        }
+        p {
+            margin: 0 0 10px;
+        }
+        a, a:link, a:active, a:visited {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        a.maykin {
+            font-family: "Trebuchet MS",Helvetica,Arial,sans-serif;
+            font-size: 16px;
+        }
+        small {
+            font-size: 12px;
+            color: #666;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="{% static '/img/maykinmedia_logo.png' %}">
+        <p>
+            <a class="maykin" href="http://www.maykinmedia.nl/">Maykin Media</a> is working on
+        </p>
+
+        <h1></h1>
+
+        <small>
+            See what else we're working on, in our <a href="http://www.maykinmedia.nl/portfolio/">portfolio</a>.
+        </small>
+    </div>
+</body>
+</html>
