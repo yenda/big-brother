@@ -44,7 +44,7 @@ below.
 
 2. Get the code::
 
-    $ git clone ssh://git@bitbucket.org/maykinmedia/bigbrother
+    $ git clone ssh://git@github.com/yenda/bigbrother
     $ cd bigbrother
 
 3. Bootstrap the virtual environment and install all required libraries. The
