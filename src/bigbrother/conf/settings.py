@@ -164,6 +164,8 @@ INSTALLED_APPS = [
     'compressor',
 
     # Project applications.
+    'bigbrother',
+    'bootstrap3',
 ]
 
 LOGGING_DIR = os.path.join(ROOT_DIR, 'log')

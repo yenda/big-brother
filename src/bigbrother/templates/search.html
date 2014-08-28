@@ -1,0 +1,56 @@
+{% extends "master.html" %}
+{% load bootstrap3 %}
+
+{% block head %}
+    {% load static %}
+<link href="{% static "css/words/search.css"%}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+
+{% if search %}
+    {% if results %}
+        <h1>{{ results }} Results for {{ search }}</h1>
+        {% if teachers %}
+            <h1>Teachers</h1>
+                <ul class="list-group">
+                {% for teacher in teachers %}
+                    <a class="list-group-item"  href={% url "teacher" teacher.teacher_id %} >
+                        <h4>{{ teacher.name }}</h4>
+                    </a>
+                {% endfor %}
+                </ul>
+        {% endif %}
+        {% if students %}
+            <h1>Students</h1>
+                <ul class="list-group">
+                {% for student in students %}
+                    <a class="list-group-item"  href={% url "student" student.student_id %} >
+                        <h4>{{ student.name }}</h4>
+                    </a>
+                {% endfor %}
+                </ul>
+        {% endif %}
+        {% if group %}
+            <h1>Group</h1>
+                <ul class="list-group">
+                    <a class="list-group-item"  href={% url "group" group %} >
+                        <h4>{{ group }}</h4>
+                    </a>
+                </ul>
+        {% endif %}
+    {% else %}
+        <h2>No matches found for {{ search }}</h2>
+    {% endif %}
+{% endif %}
+
+  <form class="form-search" method="GET">
+    <h2 class="form-search-heading">Enter your search</h2>
+     {% bootstrap_form form %}
+    {% buttons %}
+    <button type="submit" value="Search" class="btn btn-lg btn-primary btn-block">
+        {% bootstrap_icon "search" %} Search for a word
+    </button>
+    {% endbuttons %}
+  </form>
+
+{% endblock content %}

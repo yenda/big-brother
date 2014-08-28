@@ -1,10 +1,12 @@
 Django
+django-bootstrap3==4.2.0
 Sphinx
 South
 Pillow
 django_compressor
 django-axes
 raven
+pytz
 git+git://github.com/maykinmedia/django-maintenancemode.git
 
 hg+http://bitbucket.org/izi/django-admin-tools/
