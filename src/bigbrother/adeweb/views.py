@@ -15,6 +15,8 @@ def update_resources(self):
     api.connect()
     api.set_project()
     resources = api.get_resources()
+    with open("resources.xml", 'w') as f:
+        f.write(resources)
     #xml.sax.parseString(resources, SaxParsingResources())
     api.disconnect()
     return redirect(reverse('admin:index'))
@@ -25,7 +27,9 @@ def update_activities(self):
     api.connect()
     api.set_project()
     activities = api.get_activities()
-    xml.sax.parseString(activities, SaxParsingActivities())
+    with open("activities.xml", 'w') as f:
+        f.write(activities)
+    #xml.sax.parseString(activities, SaxParsingActivities())
     api.disconnect()
     return redirect(reverse('admin:index'))
 

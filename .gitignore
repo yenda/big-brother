@@ -8,14 +8,18 @@
 *.pyc
 *~
 
+# xml files
+/src/bigbrother/adeweb/activities.xml
+/src/bigbrother/adeweb/resources.xml
+
 # Javascript libraries
-/src/nudge/static/nudge/lib/bootstrap/*
-!/src/nudge/static/nudge/lib/bootstrap/dist
-/src/nudge/static/nudge/lib/font-awesome/*
-!/src/nudge/static/nudge/lib/font-awesome/css
-!/src/nudge/static/nudge/lib/font-awesome/fonts
-/src/nudge/static/nudge/lib/jquery/*
-!/src/nudge/static/nudge/lib/jquery/dist
+/src/bigbrother/static/bigbrother/lib/bootstrap/*
+!/src/bigbrother/static/bigbrother/lib/bootstrap/dist
+/src/bigbrother/static/bigbrother/lib/font-awesome/*
+!/src/bigbrother/static/bigbrother/lib/font-awesome/css
+!/src/bigbrother/static/bigbrother/lib/font-awesome/fonts
+/src/bigbrother/static/bigbrother/lib/jquery/*
+!/src/bigbrother/static/bigbrother/lib/jquery/dist
 
 # Environment
 settings_local.py

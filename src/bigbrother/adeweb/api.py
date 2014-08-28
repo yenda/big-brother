@@ -63,8 +63,6 @@ class AdewebAPI(object):
         except urllib2.URLError:
             return None
         source = response.read()
-        with open("resources.xml") as f:
-            f.write(source)
         return source
 
     def get_activities(self):
