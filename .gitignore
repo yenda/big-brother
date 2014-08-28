@@ -9,8 +9,8 @@
 *~
 
 # xml files
-/src/bigbrother/adeweb/activities.xml
-/src/bigbrother/adeweb/resources.xml
+src/bigbrother/adeweb/activities.xml
+src/bigbrother/adeweb/resources.xml
 
 # Javascript libraries
 /src/bigbrother/static/bigbrother/lib/bootstrap/*
