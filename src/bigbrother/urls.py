@@ -6,7 +6,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.views.generic.base import TemplateView
 
 from .views import (SearchView, GroupView, StudentView, TeacherView, ActivityView, HomeView)
-from .utils import (update_activites, update_resources, delete_data)
+from .adeweb import urls as adeweb
 
 admin.autodiscover()
 
@@ -14,10 +14,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^admin_tools/', include('admin_tools.urls')),
     url(r'^admin/', include(admin.site.urls)),
-
-    url(r'^updateresources', update_resources, name='updateResources'),
-    url(r'^updateactivities', update_activites, name='updateActivities'),
-    url(r'^deletedata', delete_data, name='deleteData'),
+    url(r'^adeweb/', include(adeweb)),
     url(r'^search$', SearchView.as_view(), name='search'),
     url(r'^group/(?P<group>[- \w]+)', GroupView.as_view(), name='group'),
     url(r'^teacher/(?P<teacher>[\w]+)', TeacherView.as_view(), name='teacher'),
