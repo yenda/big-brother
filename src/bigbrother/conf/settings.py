@@ -165,6 +165,7 @@ INSTALLED_APPS = [
 
     # Project applications.
     'bigbrother',
+    'bigbrother.adeweb',
     'bootstrap3',
 ]
 

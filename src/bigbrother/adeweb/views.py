@@ -10,17 +10,17 @@ from ..models import (Student, Activity, Teacher, Group, Classroom, Event, Absen
 import xml.sax
 
 
-def update_resources():
+def update_resources(self):
     api = AdewebAPI()
     api.connect()
     api.set_project()
     resources = api.get_resources()
-    xml.sax.parseString(resources, SaxParsingResources())
+    #xml.sax.parseString(resources, SaxParsingResources())
     api.disconnect()
     return redirect(reverse('admin:index'))
 
 
-def update_activities():
+def update_activities(self):
     api = AdewebAPI()
     api.connect()
     api.set_project()
@@ -36,7 +36,7 @@ def delete_all(cls):
         item.delete()
 
 
-def delete_data():
+def delete_data(self):
     delete_all(Group)
     delete_all(Classroom)
     delete_all(Event)

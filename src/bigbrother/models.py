@@ -2,14 +2,22 @@ __author__ = 'yenda'
 from django.db import models
 
 
-class Classroom(models.Model):
+class Profile(models.Model):
     name = models.CharField(max_length=100)
-
-
-class Teacher(models.Model):
-    name = models.CharField(max_length=100)
-    email = models.EmailField()
     adeweb_id = models.IntegerField()
+    mail = models.CharField(max_length=100, default="yenda1@gmail.com")
+
+    class Meta:
+        abstract = True
+
+
+class Student(Profile):
+
+    def __unicode__(self):  # Python 3: def __str__(self):
+        return "%s" % self.name
+
+
+class Teacher(Profile):
 
     def __unicode__(self):  # Python 3: def __str__(self):
         return "%s" % self.name
@@ -17,15 +25,11 @@ class Teacher(models.Model):
 
 class Group(models.Model):
     name = models.CharField(max_length=100)
+    students = models.ManyToManyField(Student, related_name="groups")
 
 
-class Student(models.Model):
+class Classroom(models.Model):
     name = models.CharField(max_length=100)
-    adeweb_id = models.IntegerField()
-    groups = models.ManyToManyField(Group, related_name="students")
-
-    def __unicode__(self):  # Python 3: def __str__(self):
-        return "%s" % self.name
 
 
 class Activity(models.Model):
@@ -57,3 +61,10 @@ class Absence(models.Model):
         if self.excuse == "":
             return False
         return True
+
+
+class AbsenceReport(models.Model):
+    code = models.CharField(max_length=100)
+    message = models.CharField(max_length=100)
+    students = models.ManyToManyField(Student, related_name="absence_report")
+    activity = models.ForeignKey(Activity, related_name="absence_reports")
