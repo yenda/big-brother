@@ -1,4 +1,5 @@
 __author__ = 'yenda'
+
 from django.views.generic import TemplateView
 from django.db.models import Q
 from datetime import datetime

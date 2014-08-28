@@ -9,7 +9,7 @@ class Classroom(models.Model):
 class Teacher(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
-    teacher_id = models.IntegerField()
+    adeweb_id = models.IntegerField()
 
     def __unicode__(self):  # Python 3: def __str__(self):
         return "%s" % self.name
@@ -21,7 +21,7 @@ class Group(models.Model):
 
 class Student(models.Model):
     name = models.CharField(max_length=100)
-    student_id = models.IntegerField()
+    adeweb_id = models.IntegerField()
     groups = models.ManyToManyField(Group, related_name="students")
 
     def __unicode__(self):  # Python 3: def __str__(self):

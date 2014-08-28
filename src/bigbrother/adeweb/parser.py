@@ -23,6 +23,7 @@ class SaxParsingResources(xml.sax.ContentHandler):
         self.name = None
         self.groups = None
         self.student = None
+        self.student_id = None
 
     def startElement(self, name, attrs):
         if name == "resource":
