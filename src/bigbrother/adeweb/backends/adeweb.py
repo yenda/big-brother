@@ -1,11 +1,12 @@
 __author__ = 'yenda'
 #TODO this file should use a config file instead of hard coded values
 
-from xml.dom.minidom import parse
 import urllib2
 
+from xml.dom.minidom import parse
 
-class AdewebAPI(object):
+
+class API(object):
     sessionId = None
 
     #connects to the adeweb API

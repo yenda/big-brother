@@ -271,3 +271,7 @@ MESSAGE_TAGS = {
 AXES_LOGIN_FAILURE_LIMIT = 3  # Default: 3
 AXES_LOCK_OUT_AT_FAILURE = True  # Default: True
 AXES_USE_USER_AGENT = False  # Default: False
+
+ADEWEB_API = {
+    'BACKEND': 'bigbrother.adeweb.api.Dummy',
+}
