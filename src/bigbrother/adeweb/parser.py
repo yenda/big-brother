@@ -41,8 +41,7 @@ class SaxParsingResources(xml.sax.ContentHandler):
         elif name == "membership":
             if self.student:
                 group = Group.objects.get_or_create(name=attrs.getValue('name'))
-                group.students.add(self.student)
-                group.save()
+                group[0].students.add(self.student)
 
     def endElement(self, name):
         pass
