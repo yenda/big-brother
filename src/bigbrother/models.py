@@ -30,17 +30,21 @@ class Student(models.Model):
 
 class Activity(models.Model):
     name = models.CharField(max_length=100)
-    activity_id = models.IntegerField()
     type = models.CharField(max_length=50)
+
+    def __unicode__(self):  # Python 3: def __str__(self):
+        return "%s" % self.name
+
+
+class Event(models.Model):
+    activity = models.ForeignKey(Activity, related_name="events")
+    adeweb_id = models.IntegerField()
     date = models.DateField()
     start_time = models.TimeField()
     end_time = models.TimeField()
     classrooms = models.ManyToManyField(Classroom, related_name="activities")
     groups = models.ManyToManyField(Group, related_name="activities")
     teachers = models.ManyToManyField(Teacher, related_name="activities")
-
-    def __unicode__(self):  # Python 3: def __str__(self):
-        return "%s" % self.name
 
 
 class Absence(models.Model):
