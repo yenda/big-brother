@@ -26,3 +26,6 @@ class ParsingTests(TestCase):
         print "number of Absence : %s" % Absence.objects.all().count()
         print "number of AbsenceReport : %s" % AbsenceReport.objects.all().count()
         print "number of Group : %s" % Group.objects.all().count()
+
+        for student in Student.objects.all():
+            print student.name

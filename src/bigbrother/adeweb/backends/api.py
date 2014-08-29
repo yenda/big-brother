@@ -8,8 +8,6 @@ from django.utils.importlib import import_module
 def load_api():
     try:
         module, attr = getattr(settings, 'ADEWEB_API', {})['BACKEND'].rsplit('.', 1)
-        print module
-        print attr
     except:
         raise ImproperlyConfigured('Missing or incorrect Adeweb API settings in ADEWEB_API: "BACKEND".')
     mod = import_module(module)
