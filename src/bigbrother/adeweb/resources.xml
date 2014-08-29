@@ -200,4 +200,26 @@
 		</constraints>
 		<rights othersRights="read" groupRights="rw" userRights="none" group="root" user="root" profileName="ESIAL - Activités, ressources" profileId="452"/>
 	</resource>
+	<resource id="102" name="DUVAL Muriel" path="TELECOM Nancy." category="instructor" isGroup="false" type="" email="muriel.duval@esial.uhp-nancy.fr" url="" consumer="false" size="1" lastUpdate="05/21/2014 13:54" creation="" lastSlot="24" lastDay="3" lastWeek="44" firstSlot="24" firstDay="0" firstWeek="1" durationInMinutes="31140" nbEventsPlaced="250" number="1" fatherName="TELECOM Nancy" fatherId="1" info="" codeZ="0422" codeY="PROFESSEUR CERTIFIE CLASSE NORMALE" codeX="DA" manager="9214" jobCategory="921" timezone="ANGLAIS" fax="" telephone="" country="" city="" state="" zipCode="" address2="" address1="" code="120363" color="0,255,0" levelAccess="read" owner="root">
+		<allMembers/>
+		<memberships/>
+		<constraints quality="100" distribution="100">
+			<costs/>
+			<caracteristics/>
+			<counters isUseCounter="false"/>
+			<setupTimes/>
+		</constraints>
+		<rights othersRights="read" groupRights="rw" userRights="none" group="root" user="root" profileName="ESIAL - Activités, ressources" profileId="452"/>
+	</resource>
+	<resource id="101" name="DESPRES Charles" path="UL hors TELECOM Nancy." category="instructor" isGroup="false" type="" email="charles.despres@esial.uhp-nancy.fr" url="" consumer="false" size="1" lastUpdate="07/18/2014 14:35" creation="" lastSlot="16" lastDay="3" lastWeek="42" firstSlot="24" firstDay="0" firstWeek="1" durationInMinutes="16140" nbEventsPlaced="130" number="1" fatherName="UL hors TELECOM Nancy" fatherId="74" info="" codeZ="0422" codeY="PROFESSEUR AGREGE CLASSE NORMALE" codeX="DA" manager="9214" jobCategory="921" timezone="ANGLAIS" fax="" telephone="" country="" city="" state="" zipCode="" address2="" address1="" code="125072" color="0,255,255" levelAccess="read" owner="root">
+		<allMembers/>
+		<memberships/>
+		<constraints quality="100" distribution="100">
+			<costs/>
+			<caracteristics/>
+			<counters isUseCounter="false"/>
+			<setupTimes/>
+		</constraints>
+		<rights othersRights="read" groupRights="rw" userRights="none" group="root" user="root" profileName="ESIAL - Activités, ressources" profileId="452"/>
+	</resource>
 </resources>

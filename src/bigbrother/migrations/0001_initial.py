@@ -30,6 +30,7 @@ class Migration(SchemaMigration):
         db.create_table(u'bigbrother_group', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=100)),
+            ('adeweb_id', self.gf('django.db.models.fields.IntegerField')()),
         ))
         db.send_create_signal(u'bigbrother', ['Group'])
 
@@ -205,6 +206,7 @@ class Migration(SchemaMigration):
         },
         u'bigbrother.group': {
             'Meta': {'object_name': 'Group'},
+            'adeweb_id': ('django.db.models.fields.IntegerField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'students': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'groups'", 'symmetrical': 'False', 'to': u"orm['bigbrother.Student']"})

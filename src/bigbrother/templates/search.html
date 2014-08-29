@@ -14,7 +14,7 @@
             <h1>Teachers</h1>
                 <ul class="list-group">
                 {% for teacher in teachers %}
-                    <a class="list-group-item"  href={% url "teacher" teacher.teacher_id %} >
+                    <a class="list-group-item"  href={% url "teacher" teacher.adeweb_id %} >
                         <h4>{{ teacher.name }}</h4>
                     </a>
                 {% endfor %}
@@ -24,18 +24,20 @@
             <h1>Students</h1>
                 <ul class="list-group">
                 {% for student in students %}
-                    <a class="list-group-item"  href={% url "student" student.student_id %} >
+                    <a class="list-group-item"  href={% url "student" student.adeweb_id %} >
                         <h4>{{ student.name }}</h4>
                     </a>
                 {% endfor %}
                 </ul>
         {% endif %}
-        {% if group %}
+        {% if groups %}
             <h1>Group</h1>
                 <ul class="list-group">
+                {% for group in groups %}
                     <a class="list-group-item"  href={% url "group" group %} >
-                        <h4>{{ group }}</h4>
+                        <h4>{{ group.name }}</h4>
                     </a>
+                {% endfor %}
                 </ul>
         {% endif %}
     {% else %}

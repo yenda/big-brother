@@ -1,10 +1,11 @@
 __author__ = 'yenda'
 
 from django.contrib import admin
-from .models import (Student, Teacher, Group, Classroom, Activity, Absence, AbsenceReport)
+from .models import (Student, Teacher, Group, Classroom, Activity, Absence, AbsenceReport, Event)
 
 
 admin.site.register(Student)
+admin.site.register(Event)
 admin.site.register(Teacher)
 admin.site.register(Group)
 admin.site.register(Classroom)

@@ -42,7 +42,8 @@ class SaxParsingResources(xml.sax.ContentHandler):
                 teacher.save()
         elif name == "membership":
             if self.student:
-                group, created = Group.objects.get_or_create(name=attrs.getValue('name'))
+                group, created = Group.objects.get_or_create(name=attrs.getValue('name'),
+                                                             adeweb_id=attrs.getValue('id'))
                 group.students.add(self.student)
 
     def endElement(self, name):
@@ -81,15 +82,10 @@ class SaxParsingActivities(xml.sax.ContentHandler):
                 classroom, created = Classroom.objects.get_or_create(name=attrs.getValue('name'))
                 self.event.classrooms.add(classroom)
             elif attrs.getValue('category') == "instructor":
-                try:
-                    teacher = Teacher.objects.get(name=attrs.getValue("id"))
-                    self.event.teachers.add(teacher)
-                except ObjectDoesNotExist:
-                    pass
+                teacher, created = Teacher.objects.get_or_create(name=attrs.getValue('name'),
+                                                                 adeweb_id=attrs.getValue('id'))
+                self.event.teachers.add(teacher)
             elif attrs.getValue('category') == "trainee":
-                try:
-                    group = Group.objects.get(name=attrs.getValue('name'))
-                    self.event.groups.add(group)
-                except ObjectDoesNotExist:
-                    pass
-            self.activity.save()
+                group, created = Group.objects.get_or_create(name=attrs.getValue('name'),
+                                                             adeweb_id=attrs.getValue('id'))
+                self.event.groups.add(group)

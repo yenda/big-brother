@@ -9,7 +9,7 @@
         <h1>Groups</h1>
             <ul class="list-group">
             {% for student in students %}
-                <a class="list-group-item"  href={% url "student" student.student_id %} >
+                <a class="list-group-item"  href={% url "student" student.adeweb_id %} >
                     <h4>{{ student.name }}</h4>
                 </a>
             {% endfor %}
@@ -22,7 +22,7 @@
 <h1>10 prochains cours</h1>
     <ul class="list-group">
     {% for activity in activities %}
-        <a class="list-group-item"  href={% url "activity" activity.activity_id %} >
+        <a class="list-group-item"  href={% url "activity" activity.adeweb_id %} >
             <h4>{{ activity.name }}</h4>
         </a>
     {% endfor %}

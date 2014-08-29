@@ -10,26 +10,32 @@ class Profile(models.Model):
     class Meta:
         abstract = True
 
-
-class Student(Profile):
-
     def __unicode__(self):  # Python 3: def __str__(self):
         return "%s" % self.name
+
+
+class Student(Profile):
+    pass
 
 
 class Teacher(Profile):
-
-    def __unicode__(self):  # Python 3: def __str__(self):
-        return "%s" % self.name
+    pass
 
 
 class Group(models.Model):
     name = models.CharField(max_length=100)
+    adeweb_id = models.IntegerField()
     students = models.ManyToManyField(Student, related_name="groups")
+
+    def __unicode__(self):  # Python 3: def __str__(self):
+        return "%s" % self.name
 
 
 class Classroom(models.Model):
     name = models.CharField(max_length=100)
+
+    def __unicode__(self):  # Python 3: def __str__(self):
+        return "%s" % self.name
 
 
 class Activity(models.Model):
@@ -49,6 +55,9 @@ class Event(models.Model):
     classrooms = models.ManyToManyField(Classroom, related_name="events")
     groups = models.ManyToManyField(Group, related_name="events")
     teachers = models.ManyToManyField(Teacher, related_name="events")
+
+    def __unicode__(self):  # Python 3: def __str__(self):
+        return "%s - %s" % (self.date, self.activity.name)
 
 
 class Absence(models.Model):
