@@ -57,14 +57,15 @@ class SaxParsingActivities(xml.sax.ContentHandler):
 
         elif name == "event":
             date = datetime.strptime(attrs.getValue("date"), "%d/%m/%Y")
-            start_time = datetime.strptime(attrs.getValue("startHour"), "%H:%M")
-            end_time = datetime.strptime(attrs.getValue("endHour"), "%H:%M")
+            time = datetime.strptime(attrs.getValue("startHour"), "%H:%M")
+            start = date.replace(hour=time.hour, minute=time.minute, second=0)
+            time = datetime.strptime(attrs.getValue("endHour"), "%H:%M")
+            end = date.replace(hour=time.hour, minute=time.minute, second=0)
             adeweb_id = attrs.getValue("id")
             self.event, created = Event.objects.get_or_create(activity=self.activity,
                                                               adeweb_id=adeweb_id,
-                                                              date=date,
-                                                              start_time=start_time,
-                                                              end_time=end_time)
+                                                              start=start,
+                                                              end=end)
 
         elif name == "eventParticipant":
             if attrs.getValue('category') == "classroom":

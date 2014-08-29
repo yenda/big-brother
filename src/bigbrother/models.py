@@ -1,6 +1,7 @@
 __author__ = 'yenda'
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from colorful.fields import RGBColorField
 
 
 class Profile(models.Model):
@@ -26,6 +27,7 @@ class Teacher(Profile):
 class Group(models.Model):
     name = models.CharField(max_length=100)
     adeweb_id = models.IntegerField()
+    color = RGBColorField(default="#ffffff")
     students = models.ManyToManyField(Student, related_name="groups")
 
     def __unicode__(self):  # Python 3: def __str__(self):
@@ -53,15 +55,14 @@ class Activity(models.Model):
 class Event(models.Model):
     activity = models.ForeignKey(Activity, related_name="events")
     adeweb_id = models.IntegerField()
-    date = models.DateField()
-    start_time = models.TimeField()
-    end_time = models.TimeField()
+    start = models.DateTimeField()
+    end = models.DateTimeField()
     classrooms = models.ManyToManyField(Classroom, related_name="events")
     groups = models.ManyToManyField(Group, related_name="events")
     teachers = models.ManyToManyField(Teacher, related_name="events")
 
     def __unicode__(self):  # Python 3: def __str__(self):
-        return "%s - %s" % (self.date, self.activity.name)
+        return "%s - %s" % (self.start, self.activity.name)
 
 
 class Absence(models.Model):

@@ -6,7 +6,7 @@
 <h1>Activity : {{ event.activity.name }}</h1>
         <h2>
             <small>
-                {{ event.date }} de {{ event.start_time }} - {{ event.end_time }}
+                {{ event.start }} - {{ event.end }}
                 salles : {% for classroom in event.classrooms.all %}{{ classroom.name }} | {% endfor %}
             </small>
         </h2>

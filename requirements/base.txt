@@ -7,6 +7,7 @@ django_compressor
 django-axes
 raven
 pytz
+django-colorful
 git+git://github.com/maykinmedia/django-maintenancemode.git
 
 hg+http://bitbucket.org/izi/django-admin-tools/

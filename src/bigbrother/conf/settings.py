@@ -167,6 +167,7 @@ INSTALLED_APPS = [
     'bigbrother',
     'bigbrother.adeweb',
     'bootstrap3',
+    'colorful',
 ]
 
 LOGGING_DIR = os.path.join(ROOT_DIR, 'log')

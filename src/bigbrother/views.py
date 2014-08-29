@@ -27,6 +27,9 @@ class SearchView(TemplateView):
             results = len(context['teachers']) + len(context['students']) + len(context['groups'])
             if results > 0:
                 context['results'] = results
+        else:
+            context['events'] = Event.objects.filter(start__lte=datetime.today(),
+                                                     end__gte=datetime.today())
         return context
 
 
@@ -41,7 +44,7 @@ class GroupView(TemplateView):
             context['number_students'] = len(context['students'])
 
         context['group'] = kwargs["group"]
-        context['activities'] = Event.objects.filter(groups__name__icontains=kwargs["group"], date=datetime.now().date()).order_by('end_time')[:10]
+        context['activities'] = Event.objects.filter(groups__name__icontains=kwargs["group"])[:10]
         return context
 
 

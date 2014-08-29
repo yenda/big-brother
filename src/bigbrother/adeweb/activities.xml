@@ -110,7 +110,7 @@
 				</eventParticipants>
 				<additional/>
 			</event>
-			<event id="969" activityId="1292" session="0" repetition="4" name="Anglais 2A IADM2" endHour="12:00" startHour="10:00" date="18/04/2014" absoluteSlot="11288" slot="8" day="4" week="33" additionalResources="0" duration="8" note="" color="0,255,0" isLockPosition="false" lastUpdate="03/19/2014 09:31" creation="06/07/2013 11:27" isLockResources="false" isSoftKeepResources="false">
+			<event id="969" activityId="1292" session="0" repetition="4" name="Anglais 2A IADM2" endHour="16:00" startHour="14:00" date="29/08/2014" absoluteSlot="11288" slot="8" day="4" week="33" additionalResources="0" duration="8" note="" color="0,255,0" isLockPosition="false" lastUpdate="03/19/2014 09:31" creation="06/07/2013 11:27" isLockResources="false" isSoftKeepResources="false">
 				<eventParticipants>
 					<eventParticipant fromWorkflow="false" nodeId="12104" nodeOrId="-1" quantity="1" category="trainee" name="2A IAMD 2 (données des villes intelligentes)" id="680"/>
 					<eventParticipant fromWorkflow="false" nodeId="3731" nodeOrId="12098" quantity="1" category="classroom" name="S 1.10" id="91"/>
