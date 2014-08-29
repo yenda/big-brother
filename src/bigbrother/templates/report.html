@@ -1,0 +1,31 @@
+{% extends "master.html" %}
+{% load bootstrap3 %}
+{% load static from staticfiles %}
+
+{% block content %}
+{% with report.event as event %}
+    <h1>Report : {{ event.activity.name }}</h1>
+    <h2>
+        <small>
+            {{ event.date }} de {{ event.start_time }} - {{ event.end_time }}
+            salles : {% for classroom in event.classrooms.all %}{{ classroom.name }} | {% endfor %}
+        </small>
+    </h2>
+
+    <div class="container">
+        <h3>Students</h3>
+        {% for student in report.students.all %}
+                <div class="col-md-3">
+                    <label>
+                        <a  href="{% url "student" student.adeweb_id %}" >
+                        {{ student.name }}
+                    </a>
+                        <input type="checkbox" value="{{ student.adeweb_id }}" name="students" >
+                        <img src="{% static "img/trombi/"%}{{ student.name|slugify}}.jpg" style="width: 70%; height: 70%;">
+
+                    </label>
+                </div>
+        {% endfor %}
+    </div>
+{% endwith %}
+{% endblock content %}

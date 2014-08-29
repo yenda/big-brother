@@ -65,7 +65,7 @@ class Event(models.Model):
 
 
 class Absence(models.Model):
-    activity = models.ForeignKey(Activity, related_name="absences")
+    event = models.ForeignKey(Event, related_name="absences")
     student = models.ForeignKey(Student, related_name="absences")
     excuse = models.TextField(blank=True)
 
@@ -81,3 +81,7 @@ class AbsenceReport(models.Model):
     message = models.CharField(max_length=100)
     students = models.ManyToManyField(Student, related_name="absence_report")
     event = models.ForeignKey(Event, related_name="absence_reports")
+    validated = models.BooleanField(default=False)
+
+    def get_absolute_url(self):
+        return "/report/%i/" % self.id

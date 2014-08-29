@@ -99,7 +99,7 @@ class Migration(SchemaMigration):
         # Adding model 'Absence'
         db.create_table(u'bigbrother_absence', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('activity', self.gf('django.db.models.fields.related.ForeignKey')(related_name='absences', to=orm['bigbrother.Activity'])),
+            ('event', self.gf('django.db.models.fields.related.ForeignKey')(related_name='absences', to=orm['bigbrother.Event'])),
             ('student', self.gf('django.db.models.fields.related.ForeignKey')(related_name='absences', to=orm['bigbrother.Student'])),
             ('excuse', self.gf('django.db.models.fields.TextField')(blank=True)),
         ))
@@ -111,6 +111,7 @@ class Migration(SchemaMigration):
             ('code', self.gf('django.db.models.fields.CharField')(max_length=100)),
             ('message', self.gf('django.db.models.fields.CharField')(max_length=100)),
             ('event', self.gf('django.db.models.fields.related.ForeignKey')(related_name='absence_reports', to=orm['bigbrother.Event'])),
+            ('validated', self.gf('django.db.models.fields.BooleanField')(default=False)),
         ))
         db.send_create_signal(u'bigbrother', ['AbsenceReport'])
 
@@ -168,7 +169,7 @@ class Migration(SchemaMigration):
     models = {
         u'bigbrother.absence': {
             'Meta': {'object_name': 'Absence'},
-            'activity': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'absences'", 'to': u"orm['bigbrother.Activity']"}),
+            'event': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'absences'", 'to': u"orm['bigbrother.Event']"}),
             'excuse': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'student': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'absences'", 'to': u"orm['bigbrother.Student']"})
@@ -179,7 +180,8 @@ class Migration(SchemaMigration):
             'event': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'absence_reports'", 'to': u"orm['bigbrother.Event']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'message': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'students': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'absence_report'", 'symmetrical': 'False', 'to': u"orm['bigbrother.Student']"})
+            'students': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'absence_report'", 'symmetrical': 'False', 'to': u"orm['bigbrother.Student']"}),
+            'validated': ('django.db.models.fields.BooleanField', [], {'default': 'False'})
         },
         u'bigbrother.activity': {
             'Meta': {'object_name': 'Activity'},

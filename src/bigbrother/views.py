@@ -1,8 +1,8 @@
 __author__ = 'yenda'
 
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, View, DetailView
 from datetime import datetime
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from .forms import SearchForm
 from .models import Student, Activity, Teacher, Group, Event, AbsenceReport, Absence
 
@@ -107,3 +107,19 @@ class EventView(TemplateView):
         context['teachers'] = Teacher.objects.filter(events=context["event"])
         context['students'] = Student.objects.filter(groups__events=context["event"])
         return context
+
+
+class ReportView(DetailView):
+    template_name = 'report.html'
+    model = AbsenceReport
+    context_object_name = "report"
+
+
+class ValidationView(View):
+    def get(self, request, *args, **kwargs):
+        report = get_object_or_404(AbsenceReport, code=kwargs["code"])
+        for student in report.students.all():
+            Absence(student=student, event=report.event).save()
+            report.validated = True
+            report.save()
+        return redirect(report)
