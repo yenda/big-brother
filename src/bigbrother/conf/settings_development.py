@@ -72,6 +72,14 @@ DEBUG_TOOLBAR_CONFIG = {
 #
 SKIP_SOUTH_TESTS = True
 
+
+#
+# Adeweb backend
+#
+ADEWEB_API={
+    'BACKEND': 'bigbrother.adeweb.backends.dummy.API',
+}
+
 # Override settings with local settings.
 try:
     from settings_local import *

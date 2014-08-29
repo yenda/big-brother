@@ -46,9 +46,9 @@ class Event(models.Model):
     date = models.DateField()
     start_time = models.TimeField()
     end_time = models.TimeField()
-    classrooms = models.ManyToManyField(Classroom, related_name="activities")
-    groups = models.ManyToManyField(Group, related_name="activities")
-    teachers = models.ManyToManyField(Teacher, related_name="activities")
+    classrooms = models.ManyToManyField(Classroom, related_name="events")
+    groups = models.ManyToManyField(Group, related_name="events")
+    teachers = models.ManyToManyField(Teacher, related_name="events")
 
 
 class Absence(models.Model):

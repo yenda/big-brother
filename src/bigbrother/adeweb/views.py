@@ -33,11 +33,16 @@ def update_activities(self):
     api.connect()
     api.set_project()
     activities = api.get_activities()
-    with open("activities.xml", 'w') as f:
-        f.write(activities)
-    #xml.sax.parseString(activities, SaxParsingActivities())
+    xml.sax.parseString(activities, SaxParsingActivities())
     api.disconnect()
     return redirect(reverse('admin:index'))
+
+
+def write_activities(self):
+    api = load_api()
+    activities = api.get_activities()
+    with open("activities.xml", 'w') as f:
+        f.write(activities)
 
 
 def delete_all(cls):

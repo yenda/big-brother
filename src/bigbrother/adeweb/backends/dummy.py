@@ -13,7 +13,10 @@ class API(object):
         pass
 
     def get_activities(self):
-        pass
+        path = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../activities.xml')
+        with open(path, "r") as f:
+            resources = f.read()
+            return resources
 
     def get_resources(self):
         path = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../resources.xml')

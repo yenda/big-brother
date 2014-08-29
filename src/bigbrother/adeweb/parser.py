@@ -27,7 +27,9 @@ class SaxParsingResources(xml.sax.ContentHandler):
 
     def startElement(self, name, attrs):
         if name == "resource":
-            if attrs.getValue('category') and attrs.getValue('category') == 'category5':
+            category = attrs.getValue('category')
+            is_group = attrs.getValue('isGroup')
+            if attrs.getValue('category') and category == 'category5' and is_group == "false":
                 self.name = attrs.getValue('name')
                 self.adeweb_id = attrs.getValue('id')
                 self.student = Student(name=self.name, adeweb_id=self.adeweb_id)
@@ -60,8 +62,7 @@ class SaxParsingActivities(xml.sax.ContentHandler):
         if name == "activity":
             self.nameActivity = attrs.getValue('name')
             self.type = attrs.getValue('type')
-            self.activity = Activity.objects.get_or_create(name=self.nameActivity, type=self.type)
-            self.activity.save()
+            self.activity, created = Activity.objects.get_or_create(name=self.nameActivity, type=self.type)
 
         elif name == "event":
             date = datetime.strptime(attrs.getValue("date"), "%d/%m/%Y")
@@ -77,18 +78,18 @@ class SaxParsingActivities(xml.sax.ContentHandler):
 
         elif name == "eventParticipant":
             if attrs.getValue('category') == "classroom":
-                classroom = Classroom.objects.get_or_create(name=attrs.getValue('name'))
-                self.activity.classrooms.add(classroom)
+                classroom, created = Classroom.objects.get_or_create(name=attrs.getValue('name'))
+                self.event.classrooms.add(classroom)
             elif attrs.getValue('category') == "instructor":
                 try:
                     teacher = Teacher.objects.get(name=attrs.getValue("id"))
-                    self.activity.teachers.add(teacher)
+                    self.event.teachers.add(teacher)
                 except ObjectDoesNotExist:
                     pass
             elif attrs.getValue('category') == "trainee":
                 try:
                     group = Group.objects.get(name=attrs.getValue('name'))
-                    self.activity.groups.add(group)
+                    self.event.groups.add(group)
                 except ObjectDoesNotExist:
                     pass
             self.activity.save()
