@@ -1,11 +1,10 @@
 __author__ = 'yenda'
 
 from django.views.generic import TemplateView
-from django.db.models import Q
 from datetime import datetime
 from django.shortcuts import get_object_or_404
 from .forms import SearchForm
-from .models import Student, Activity, Teacher, Group, Event
+from .models import Student, Activity, Teacher, Group, Event, AbsenceReport, Absence
 
 
 class HomeView(TemplateView):
@@ -62,7 +61,7 @@ class TeacherView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(TeacherView, self).get_context_data(**kwargs)
         context['teacher'] = get_object_or_404(Teacher, adeweb_id=kwargs["teacher"])
-        context['events'] = Event.objects.filter(teachers=kwargs["teacher"])
+        context['events'] = Event.objects.filter(teachers=context["teacher"])
         return context
 
 
@@ -71,5 +70,40 @@ class ActivityView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(ActivityView, self).get_context_data(**kwargs)
-        context['activity'] = get_object_or_404(Activity, adeweb_id=kwargs["activity"])
+        context['activity'] = get_object_or_404(Activity, id=kwargs["activity"])
+        return context
+
+import string
+import random
+
+
+def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
+    return ''.join(random.choice(chars) for _ in range(size))
+
+
+class EventView(TemplateView):
+    template_name = 'event.html'
+
+    def post(self, request, *args, **kwargs):
+        context = super(EventView, self).get_context_data(**kwargs)
+        context['event'] = get_object_or_404(Event, adeweb_id=kwargs["event"])
+        context['teachers'] = Teacher.objects.filter(events=context["event"])
+        students_id = self.request.POST.getlist("students")
+        context['students'] = Student.objects.filter(groups__events=context["event"], adeweb_id__in=students_id)
+        if students_id:
+            code = id_generator(30)
+            absence_report = AbsenceReport(code=code, event=context['event'])
+            absence_report.save()
+            for student in context["students"]:
+                absence_report.students.add(student)
+            context["success"] = True
+            context["link"] = "/validation/"+code
+        context["message"] = True
+        return self.render_to_response(context)
+
+    def get_context_data(self, **kwargs):
+        context = super(EventView, self).get_context_data(**kwargs)
+        context['event'] = get_object_or_404(Event, adeweb_id=kwargs["event"])
+        context['teachers'] = Teacher.objects.filter(events=context["event"])
+        context['students'] = Student.objects.filter(groups__events=context["event"])
         return context

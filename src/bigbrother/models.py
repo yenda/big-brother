@@ -1,5 +1,6 @@
 __author__ = 'yenda'
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
 
 
 class Profile(models.Model):
@@ -42,6 +43,9 @@ class Activity(models.Model):
     name = models.CharField(max_length=100)
     type = models.CharField(max_length=50)
 
+    class Meta:
+        verbose_name_plural = _(u'activities')
+
     def __unicode__(self):  # Python 3: def __str__(self):
         return "%s" % self.name
 
@@ -76,4 +80,4 @@ class AbsenceReport(models.Model):
     code = models.CharField(max_length=100)
     message = models.CharField(max_length=100)
     students = models.ManyToManyField(Student, related_name="absence_report")
-    activity = models.ForeignKey(Activity, related_name="absence_reports")
+    event = models.ForeignKey(Event, related_name="absence_reports")

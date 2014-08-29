@@ -1,6 +1,6 @@
     <ul class="list-group">
     {% for event in events %}
-        <a class="list-group-item" >
+        <a class="list-group-item" href={% url "event" event.adeweb_id %}>
             <h4>{{ event.activity.name }} <small>{{ event.date }}</small></h4>
         </a>
     {% endfor %}

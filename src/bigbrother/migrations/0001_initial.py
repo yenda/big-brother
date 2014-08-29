@@ -110,7 +110,7 @@ class Migration(SchemaMigration):
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('code', self.gf('django.db.models.fields.CharField')(max_length=100)),
             ('message', self.gf('django.db.models.fields.CharField')(max_length=100)),
-            ('activity', self.gf('django.db.models.fields.related.ForeignKey')(related_name='absence_reports', to=orm['bigbrother.Activity'])),
+            ('event', self.gf('django.db.models.fields.related.ForeignKey')(related_name='absence_reports', to=orm['bigbrother.Event'])),
         ))
         db.send_create_signal(u'bigbrother', ['AbsenceReport'])
 
@@ -175,8 +175,8 @@ class Migration(SchemaMigration):
         },
         u'bigbrother.absencereport': {
             'Meta': {'object_name': 'AbsenceReport'},
-            'activity': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'absence_reports'", 'to': u"orm['bigbrother.Activity']"}),
             'code': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
+            'event': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'absence_reports'", 'to': u"orm['bigbrother.Event']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'message': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'students': ('django.db.models.fields.related.ManyToManyField', [], {'related_name': "'absence_report'", 'symmetrical': 'False', 'to': u"orm['bigbrother.Student']"})

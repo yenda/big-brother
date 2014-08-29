@@ -5,7 +5,7 @@ from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.views.generic.base import TemplateView
 
-from .views import (SearchView, GroupView, StudentView, TeacherView, ActivityView, HomeView)
+from .views import (SearchView, GroupView, StudentView, TeacherView, ActivityView, HomeView, EventView)
 from .adeweb import urls as adeweb
 
 admin.autodiscover()
@@ -20,6 +20,7 @@ urlpatterns = patterns('',
     url(r'^teacher/(?P<teacher>[\w]+)', TeacherView.as_view(), name='teacher'),
     url(r'^student/(?P<student>[\w]+)', StudentView.as_view(), name='student'),
     url(r'^activity/(?P<activity>[- \w]+)', ActivityView.as_view(), name='activity'),
+    url(r'^event/(?P<event>[- \w]+)', EventView.as_view(), name='event'),
     url(r'^', HomeView.as_view()),
     # Simply show the master template.
     (r'^$', TemplateView.as_view(template_name='master.html')),

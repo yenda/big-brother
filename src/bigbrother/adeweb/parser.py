@@ -3,17 +3,9 @@ __author__ = 'yenda'
 #TODO this file should be documented
 
 from datetime import datetime
-
-from django.core.exceptions import ObjectDoesNotExist
 from ..models import (Student, Activity, Teacher, Group, Classroom, Event)
 
 import xml.sax
-import string
-import random
-
-
-def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
-    return ''.join(random.choice(chars) for _ in range(size))
 
 
 class SaxParsingResources(xml.sax.ContentHandler):
@@ -32,14 +24,12 @@ class SaxParsingResources(xml.sax.ContentHandler):
             if attrs.getValue('category') and category == 'category5' and is_group == "false":
                 self.name = attrs.getValue('name')
                 self.adeweb_id = attrs.getValue('id')
-                self.student = Student(name=self.name, adeweb_id=self.adeweb_id)
-                self.student.save()
+                self.student, created = Student.objects.get_or_create(name=self.name, adeweb_id=self.adeweb_id)
             elif attrs.getValue('category') and attrs.getValue('category') == 'instructor':
                 self.student = None
                 name = attrs.getValue('name')
                 adeweb_id = attrs.getValue('id')
-                teacher = Teacher(name=name, adeweb_id=adeweb_id)
-                teacher.save()
+                Teacher.objects.get_or_create(name=name, adeweb_id=adeweb_id)
         elif name == "membership":
             if self.student:
                 group, created = Group.objects.get_or_create(name=attrs.getValue('name'),
@@ -70,12 +60,11 @@ class SaxParsingActivities(xml.sax.ContentHandler):
             start_time = datetime.strptime(attrs.getValue("startHour"), "%H:%M")
             end_time = datetime.strptime(attrs.getValue("endHour"), "%H:%M")
             adeweb_id = attrs.getValue("id")
-            self.event = Event(activity=self.activity,
-                               adeweb_id=adeweb_id,
-                               date=date,
-                               start_time=start_time,
-                               end_time=end_time)
-            self.event.save()
+            self.event, created = Event.objects.get_or_create(activity=self.activity,
+                                                              adeweb_id=adeweb_id,
+                                                              date=date,
+                                                              start_time=start_time,
+                                                              end_time=end_time)
 
         elif name == "eventParticipant":
             if attrs.getValue('category') == "classroom":
