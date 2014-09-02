@@ -6,8 +6,8 @@ from .backends.api import load_api
 from .parser import SaxParsingActivities, SaxParsingResources
 from django.shortcuts import redirect
 from django.core.urlresolvers import reverse
-from ..models import (Activity, Classroom, Event, Absence)
-from django.contrib.auth.models import User, Group
+from ..models import (Membership, Activity, Classroom, Event, Absence)
+from django.conf import settings
 
 import xml
 
@@ -53,10 +53,10 @@ def delete_all(cls):
 
 
 def delete_data(self):
-    delete_all(Group)
+    delete_all(Membership)
     delete_all(Classroom)
     delete_all(Event)
-    delete_all(User)
+    delete_all(settings.AUTH_USER_MODEL)
     delete_all(Activity)
     delete_all(Absence)
     return redirect(reverse('admin:index'))

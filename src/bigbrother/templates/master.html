@@ -46,9 +46,18 @@
             <div class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
                 <li class="active"><a href="/">Home</a></li>
-                <li><a href={% url 'search' %}><span class="glyphicon glyphicon-bullhorn"></span> Appel</a></li>
-                <li><a href={% url 'search' %}><span class="glyphicon glyphicon-calendar"></span> Emploi du temps</a></li>
-                <li><a href="/"><i class="fa fa-users"></i> Absences</a></li>
+                <li><a href={% url 'search' %}><span class="glyphicon glyphicon-search"></span> Search</a></li>
+                {% if user.is_authenticated %}
+                    {% if user.is_instructor %}
+                        <li><a href={% url 'search' %}><span class="glyphicon glyphicon-bullhorn"></span> Call the register</a></li>
+                    {% endif %}
+                    <li><a href={% url 'search' %}><span class="glyphicon glyphicon-calendar"></span> Schedule</a></li>
+                    <li><a href="/"> Absences</a></li>
+                    <li><a>Welcome {{ user.username }}</a></li>
+                    <li><a href={% url 'logout' %}>Logout</a></li>
+                {% else %}
+                    <li><a href={% url 'login' %}>Login</a></li>
+                {% endif %}
               </ul>
             </div><!--/.nav-collapse -->
           </div>
@@ -61,9 +70,11 @@
 
         <!-- FOOTER -->
         <footer>
+          <div class="container">
           <hr class="featurette-divider">
           <p class="pull-right"><a href="#">Back to top</a></p>
           <p>&copy; 2014 BigBrother, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+          </div>
         </footer>
 
         <script src="{% static 'bigbrother/lib/bootstrap/dist/js/bootstrap.min.js' %}"></script>

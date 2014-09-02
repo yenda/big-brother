@@ -8,6 +8,7 @@ from django.views.generic.base import TemplateView
 from .views import (SearchView, GroupView, StudentView, TeacherView,
                     ActivityView, HomeView, EventView, ReportView, ValidationView)
 from .adeweb import urls as adeweb
+from .users import urls as accounts
 
 admin.autodiscover()
 
@@ -15,6 +16,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^admin_tools/', include('admin_tools.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^accounts/', include(accounts)),
     url(r'^adeweb/', include(adeweb)),
     url(r'^search$', SearchView.as_view(), name='search'),
     url(r'^group/(?P<group>[- \w]+)', GroupView.as_view(), name='group'),

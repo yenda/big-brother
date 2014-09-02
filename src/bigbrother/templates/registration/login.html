@@ -1,0 +1,17 @@
+{% extends "master.html" %}
+{% load bootstrap3 %}
+{% load static from staticfiles %}
+
+{% block content %}
+
+    <form class="form-small" method="POST">
+    {% csrf_token %}
+         {% bootstrap_form form %}
+        {% buttons %}
+        <button type="submit" value="login" class="btn btn-lg btn-primary btn-block">
+            {% bootstrap_icon "user" %} Connect
+        </button>
+        {% endbuttons %}
+    </form>
+
+{% endblock content %}

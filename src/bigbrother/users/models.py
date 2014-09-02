@@ -1,14 +1,14 @@
 __author__ = 'yenda'
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 
 
-class Profile(models.Model):
-    user = models.OneToOneField(User, related_name="profile")
-    name = models.CharField(max_length=100)
-    adeweb_id = models.IntegerField()
-    mail = models.CharField(max_length=100, default="yenda1@gmail.com")
+class User(AbstractUser):
+    adeweb_id = models.CharField(max_length=20, blank=True)
     category = models.CharField(max_length=100, default="student")
 
     def __unicode__(self):  # Python 3: def __str__(self):
-        return "%s" % self.name
+        return "%s" % self.username
+
+    def is_instructor(self):
+        return self.category=="instructor"

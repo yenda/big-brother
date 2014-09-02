@@ -1,7 +1,16 @@
 __author__ = 'yenda'
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.auth.models import User, Group
+from django.conf import settings
+
+
+class Membership(models.Model):
+    name = models.CharField(max_length=100)
+    adeweb_id = models.IntegerField()
+    students = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="memberships")
+
+    def __unicode__(self):  # Python 3: def __str__(self):
+        return "%s" % self.name
 
 
 class Classroom(models.Model):
@@ -28,8 +37,8 @@ class Event(models.Model):
     start = models.DateTimeField()
     end = models.DateTimeField()
     classrooms = models.ManyToManyField(Classroom, related_name="events")
-    groups = models.ManyToManyField(Group, related_name="events")
-    teachers = models.ManyToManyField(User, related_name="events")
+    groups = models.ManyToManyField(Membership, related_name="events")
+    teachers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="events")
 
     def __unicode__(self):  # Python 3: def __str__(self):
         return "%s - %s" % (self.start, self.activity.name)
@@ -37,7 +46,7 @@ class Event(models.Model):
 
 class Absence(models.Model):
     event = models.ForeignKey(Event, related_name="absences")
-    student = models.ForeignKey(User, related_name="absences")
+    student = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="absences")
     excuse = models.TextField(blank=True)
 
     @property
@@ -50,7 +59,7 @@ class Absence(models.Model):
 class AbsenceReport(models.Model):
     code = models.CharField(max_length=100)
     message = models.CharField(max_length=100)
-    students = models.ManyToManyField(User, related_name="absence_report")
+    students = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="absence_report")
     event = models.ForeignKey(Event, related_name="absence_reports")
     validated = models.BooleanField(default=False)
 

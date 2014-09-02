@@ -166,6 +166,7 @@ INSTALLED_APPS = [
     # Project applications.
     'bigbrother',
     'bigbrother.adeweb',
+    'bigbrother.users',
     'bootstrap3',
     'colorful',
 ]
@@ -275,4 +276,6 @@ AXES_USE_USER_AGENT = False  # Default: False
 
 ADEWEB_API = {
     'BACKEND': 'bigbrother.adeweb.api.Dummy',
-}
+    }
+
+AUTH_USER_MODEL = 'users.User'
