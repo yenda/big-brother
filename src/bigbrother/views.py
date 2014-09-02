@@ -4,8 +4,8 @@ from django.views.generic import TemplateView, View, DetailView
 from datetime import datetime
 from django.shortcuts import get_object_or_404, redirect
 from .forms import SearchForm
-from .models import Student, Activity, Teacher, Group, Event, AbsenceReport, Absence
-
+from .models import Activity, Event, AbsenceReport, Absence
+from django.contrib.auth.models import User, Group
 
 class HomeView(TemplateView):
     template_name = 'home.html'
@@ -20,8 +20,8 @@ class SearchView(TemplateView):
         context['form'] = SearchForm
         if search:
             context['search'] = search
-            context['teachers'] = Teacher.objects.filter(name__icontains=search)
-            context['students'] = Student.objects.filter(name__icontains=search)
+            context['teachers'] = User.objects.filter(name__icontains=search)
+            context['students'] = User.objects.filter(name__icontains=search)
             context['groups'] = Group.objects.filter(name__icontains=search)
 
             results = len(context['teachers']) + len(context['students']) + len(context['groups'])
@@ -38,7 +38,7 @@ class GroupView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(GroupView, self).get_context_data(**kwargs)
-        context['students'] = Student.objects.filter(groups__name__icontains=kwargs["group"])
+        context['students'] = User.objects.filter(groups__name__icontains=kwargs["group"])
 
         if context['students']:
             context['number_students'] = len(context['students'])
@@ -53,7 +53,7 @@ class StudentView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(StudentView, self).get_context_data(**kwargs)
-        context['student'] = get_object_or_404(Student, adeweb_id=kwargs["student"])
+        context['student'] = get_object_or_404(User, adeweb_id=kwargs["student"])
         context['events'] = Event.objects.filter(groups__students=context['student'])
         return context
 
@@ -63,7 +63,7 @@ class TeacherView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(TeacherView, self).get_context_data(**kwargs)
-        context['teacher'] = get_object_or_404(Teacher, adeweb_id=kwargs["teacher"])
+        context['teacher'] = get_object_or_404(User, adeweb_id=kwargs["teacher"])
         context['events'] = Event.objects.filter(teachers=context["teacher"])
         return context
 
@@ -90,9 +90,9 @@ class EventView(TemplateView):
     def post(self, request, *args, **kwargs):
         context = super(EventView, self).get_context_data(**kwargs)
         context['event'] = get_object_or_404(Event, adeweb_id=kwargs["event"])
-        context['teachers'] = Teacher.objects.filter(events=context["event"])
+        context['teachers'] = User.objects.filter(events=context["event"])
         students_id = self.request.POST.getlist("students")
-        context['students'] = Student.objects.filter(groups__events=context["event"], adeweb_id__in=students_id)
+        context['students'] = User.objects.filter(groups__events=context["event"], adeweb_id__in=students_id)
         if students_id:
             code = id_generator(30)
             absence_report = AbsenceReport(code=code, event=context['event'])
@@ -107,8 +107,8 @@ class EventView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(EventView, self).get_context_data(**kwargs)
         context['event'] = get_object_or_404(Event, adeweb_id=kwargs["event"])
-        context['teachers'] = Teacher.objects.filter(events=context["event"])
-        context['students'] = Student.objects.filter(groups__events=context["event"])
+        context['teachers'] = User.objects.filter(events=context["event"])
+        context['students'] = User.objects.filter(groups__events=context["event"])
         return context
 
 

@@ -3,8 +3,8 @@ __author__ = 'yenda'
 #TODO this file should be documented
 
 from datetime import datetime
-from ..models import (Student, Activity, Teacher, Group, Classroom, Event)
-
+from ..models import (Activity, Classroom, Event)
+from django.contrib.auth.models import User, Group
 import xml.sax
 
 
@@ -24,12 +24,12 @@ class SaxParsingResources(xml.sax.ContentHandler):
             if attrs.getValue('category') and category == 'category5' and is_group == "false":
                 self.name = attrs.getValue('name')
                 self.adeweb_id = attrs.getValue('id')
-                self.student, created = Student.objects.get_or_create(name=self.name, adeweb_id=self.adeweb_id)
+                self.student, created = User.objects.get_or_create(name=self.name, adeweb_id=self.adeweb_id, category="student")
             elif attrs.getValue('category') and attrs.getValue('category') == 'instructor':
                 self.student = None
                 name = attrs.getValue('name')
                 adeweb_id = attrs.getValue('id')
-                Teacher.objects.get_or_create(name=name, adeweb_id=adeweb_id)
+                User.objects.get_or_create(name=name, adeweb_id=adeweb_id, category="instructor")
         elif name == "membership":
             if self.student:
                 group, created = Group.objects.get_or_create(name=attrs.getValue('name'),
@@ -72,8 +72,9 @@ class SaxParsingActivities(xml.sax.ContentHandler):
                 classroom, created = Classroom.objects.get_or_create(name=attrs.getValue('name'))
                 self.event.classrooms.add(classroom)
             elif attrs.getValue('category') == "instructor":
-                teacher, created = Teacher.objects.get_or_create(name=attrs.getValue('name'),
-                                                                 adeweb_id=attrs.getValue('id'))
+                teacher, created = User.objects.get_or_create(name=attrs.getValue('name'),
+                                                                 adeweb_id=attrs.getValue('id'),
+                                                                 category="instructor")
                 self.event.teachers.add(teacher)
             elif attrs.getValue('category') == "trainee":
                 group, created = Group.objects.get_or_create(name=attrs.getValue('name'),

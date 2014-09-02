@@ -1,37 +1,7 @@
 __author__ = 'yenda'
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from colorful.fields import RGBColorField
-
-
-class Profile(models.Model):
-    name = models.CharField(max_length=100)
-    adeweb_id = models.IntegerField()
-    mail = models.CharField(max_length=100, default="yenda1@gmail.com")
-
-    class Meta:
-        abstract = True
-
-    def __unicode__(self):  # Python 3: def __str__(self):
-        return "%s" % self.name
-
-
-class Student(Profile):
-    pass
-
-
-class Teacher(Profile):
-    pass
-
-
-class Group(models.Model):
-    name = models.CharField(max_length=100)
-    adeweb_id = models.IntegerField()
-    color = RGBColorField(default="#ffffff")
-    students = models.ManyToManyField(Student, related_name="groups")
-
-    def __unicode__(self):  # Python 3: def __str__(self):
-        return "%s" % self.name
+from django.contrib.auth.models import User, Group
 
 
 class Classroom(models.Model):
@@ -59,7 +29,7 @@ class Event(models.Model):
     end = models.DateTimeField()
     classrooms = models.ManyToManyField(Classroom, related_name="events")
     groups = models.ManyToManyField(Group, related_name="events")
-    teachers = models.ManyToManyField(Teacher, related_name="events")
+    teachers = models.ManyToManyField(User, related_name="events")
 
     def __unicode__(self):  # Python 3: def __str__(self):
         return "%s - %s" % (self.start, self.activity.name)
@@ -67,7 +37,7 @@ class Event(models.Model):
 
 class Absence(models.Model):
     event = models.ForeignKey(Event, related_name="absences")
-    student = models.ForeignKey(Student, related_name="absences")
+    student = models.ForeignKey(User, related_name="absences")
     excuse = models.TextField(blank=True)
 
     @property
@@ -80,7 +50,7 @@ class Absence(models.Model):
 class AbsenceReport(models.Model):
     code = models.CharField(max_length=100)
     message = models.CharField(max_length=100)
-    students = models.ManyToManyField(Student, related_name="absence_report")
+    students = models.ManyToManyField(User, related_name="absence_report")
     event = models.ForeignKey(Event, related_name="absence_reports")
     validated = models.BooleanField(default=False)
 
