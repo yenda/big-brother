@@ -23,7 +23,7 @@ class Event(models.Model):
     start = models.DateTimeField()
     end = models.DateTimeField()
     classrooms = models.ManyToManyField(Classroom, related_name="events")
-    groups = models.ManyToManyField(Membership, related_name="events")
+    memberships = models.ManyToManyField(Membership, related_name="events")
     teachers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="events")
 
     def __unicode__(self):  # Python 3: def __str__(self):

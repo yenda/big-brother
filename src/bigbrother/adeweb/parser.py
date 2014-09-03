@@ -5,9 +5,10 @@ __author__ = 'yenda'
 
 import xml.sax
 
-from django.contrib.auth import get_user_model
 from datetime import datetime
+from django.contrib.auth import get_user_model
 
+from .models import user_factory
 from ..calendar.models import Activity, Event
 from ..institution.models import Membership, Classroom
 
@@ -28,12 +29,14 @@ class SaxParsingResources(xml.sax.ContentHandler):
             if attrs.getValue('category') and category == 'category5' and is_group == "false":
                 self.name = attrs.getValue('name')
                 self.adeweb_id = attrs.getValue('id')
-                self.student, created = get_user_model().objects.get_or_create(username=self.name, adeweb_id=self.adeweb_id, category="student")
+                email = attrs.getValue('email')
+                self.student = user_factory(username=self.name, adeweb_id=self.adeweb_id, email=email, group="student")
             elif attrs.getValue('category') and attrs.getValue('category') == 'instructor':
                 self.student = None
                 name = attrs.getValue('name')
                 adeweb_id = attrs.getValue('id')
-                get_user_model().objects.get_or_create(username=name, adeweb_id=adeweb_id, category="instructor")
+                email = attrs.getValue('email')
+                user_factory(username=name, adeweb_id=adeweb_id, email=email, group="instructor")
         elif name == "membership":
             if self.student:
                 group, created = Membership.objects.get_or_create(name=attrs.getValue('name'),
@@ -48,7 +51,7 @@ class SaxParsingActivities(xml.sax.ContentHandler):
 
     def __init__(self):
         xml.sax.ContentHandler.__init__(self)
-        self.nameActivity=None
+        self.nameActivity = None
         self.type = None
         self.activity = None
         self.event = None
@@ -76,11 +79,13 @@ class SaxParsingActivities(xml.sax.ContentHandler):
                 classroom, created = Classroom.objects.get_or_create(name=attrs.getValue('name'))
                 self.event.classrooms.add(classroom)
             elif attrs.getValue('category') == "instructor":
-                teacher, created = get_user_model().objects.get_or_create(username=attrs.getValue('name'),
-                                                                          adeweb_id=attrs.getValue('id'),
-                                                                          category="instructor")
-                self.event.teachers.add(teacher)
+                try:
+                    adeweb_id = attrs.getValue('id')
+                    teacher = get_user_model().objects.get(adeweb_id=adeweb_id)
+                    self.event.teachers.add(teacher)
+                except get_user_model().DoesNotExist:
+                    pass
             elif attrs.getValue('category') == "trainee":
-                group, created = Membership.objects.get_or_create(name=attrs.getValue('name'),
-                                                                  adeweb_id=attrs.getValue('id'))
-                self.event.groups.add(group)
+                membership, created = Membership.objects.get_or_create(name=attrs.getValue('name'),
+                                                                       adeweb_id=attrs.getValue('id'))
+                self.event.memberships.add(membership)

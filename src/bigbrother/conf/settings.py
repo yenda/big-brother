@@ -164,7 +164,6 @@ INSTALLED_APPS = [
     'compressor',
 
     # Project applications.
-    'bigbrother',
     'bigbrother.adeweb',
     'bigbrother.users',
     'bigbrother.institution',
