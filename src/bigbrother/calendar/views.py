@@ -49,5 +49,5 @@ class EventView(TemplateView):
         context = super(EventView, self).get_context_data(**kwargs)
         context['event'] = get_object_or_404(Event, adeweb_id=kwargs["event"])
         context['teachers'] = get_user_model().objects.filter(events=context["event"])
-        context['students'] = get_user_model().objects.filter(groups__events=context["event"])
+        context['students'] = get_user_model().objects.filter(memberships__events=context["event"])
         return context
