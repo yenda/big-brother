@@ -31,11 +31,11 @@
                 </ul>
         {% endif %}
         {% if groups %}
-            <h1>Group</h1>
+            <h1>Memberships</h1>
                 <ul class="list-group">
-                {% for group in groups %}
-                    <a class="list-group-item"  href={% url "group" group %} >
-                        <h4>{{ group.name }}</h4>
+                {% for membership in memberships %}
+                    <a class="list-group-item"  href={% url "membership" membership %} >
+                        <h4>{{ membership.name }}</h4>
                     </a>
                 {% endfor %}
                 </ul>

@@ -167,6 +167,9 @@ INSTALLED_APPS = [
     'bigbrother',
     'bigbrother.adeweb',
     'bigbrother.users',
+    'bigbrother.institution',
+    'bigbrother.absences',
+    'bigbrother.calendar',
     'bootstrap3',
     'colorful',
 ]

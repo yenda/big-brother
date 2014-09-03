@@ -1,5 +1,6 @@
 Django
 django-bootstrap3==4.2.0
+django-choices==1.1.12
 Sphinx
 South
 Pillow

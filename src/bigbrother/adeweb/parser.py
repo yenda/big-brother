@@ -1,12 +1,15 @@
-from django.contrib.auth import get_user_model
-
 __author__ = 'yenda'
 
 #TODO this file should be documented
 
-from datetime import datetime
-from ..models import (Membership, Activity, Classroom, Event)
+
 import xml.sax
+
+from django.contrib.auth import get_user_model
+from datetime import datetime
+
+from ..calendar.models import Activity, Event
+from ..institution.models import Membership, Classroom
 
 
 class SaxParsingResources(xml.sax.ContentHandler):
