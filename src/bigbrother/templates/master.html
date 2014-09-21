@@ -23,7 +23,6 @@
             <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
         <script src="{% static 'bigbrother/lib/jquery/dist/jquery.min.js' %}"></script>
-
         <link rel="shortcut icon" href="{% static 'bigbrother/ico/favicon.png' %}">
         <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static 'bigbrother/ico/apple-touch-icon-144-precomposed.png' %}">
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'bigbrother/ico/apple-touch-icon-114-precomposed.png' %}">
@@ -46,6 +45,7 @@
             <div class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
                 <li class="active"><a href="/">Home</a></li>
+                <li><a href={% url 'create-event' %}>Create</a></li>
                 <li><a href={% url 'search' %}><span class="glyphicon glyphicon-search"></span> Search</a></li>
                 {% if user.is_authenticated %}
                     {% if user.is_instructor %}

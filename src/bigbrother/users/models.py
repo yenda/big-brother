@@ -10,5 +10,8 @@ class User(AbstractUser):
     def __unicode__(self):  # Python 3: def __str__(self):
         return "%s" % self.username
 
+    def image_url(self):
+        return "bigbrother/img/trombi/{0}-{1}.jpg".format(self.last_name.lower(), self.first_name.lower())
+
     def is_instructor(self):
         return self.groups.filter(name="instructor").exists()

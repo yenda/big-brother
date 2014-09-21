@@ -162,15 +162,16 @@ INSTALLED_APPS = [
     'axes',
     'south',
     'compressor',
+    'bootstrap3',
+    'colorful',
 
     # Project applications.
     'bigbrother.adeweb',
     'bigbrother.users',
     'bigbrother.institution',
-    'bigbrother.absences',
+    'bigbrother.reports',
     'bigbrother.calendar',
-    'bootstrap3',
-    'colorful',
+
 ]
 
 LOGGING_DIR = os.path.join(ROOT_DIR, 'log')

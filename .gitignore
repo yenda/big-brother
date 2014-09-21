@@ -21,6 +21,9 @@ src/bigbrother/adeweb/resources.xml
 /src/bigbrother/static/bigbrother/lib/jquery/*
 !/src/bigbrother/static/bigbrother/lib/jquery/dist
 
+#trombi
+/src/bigbrother/static/bigbrother/img/trombi/*
+
 # Environment
 settings_local.py
 /env/

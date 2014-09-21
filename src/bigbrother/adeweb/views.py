@@ -10,7 +10,7 @@ from django.conf import settings
 
 import xml
 
-from ..absences.models import AbsenceReport, Absence
+from ..reports.models import Absence
 from ..calendar.models import Event, Activity
 from ..institution.models import Classroom, Membership
 
@@ -62,5 +62,4 @@ def delete_data(self):
     delete_all(settings.AUTH_USER_MODEL)
     delete_all(Activity)
     delete_all(Absence)
-    delete_all(AbsenceReport)
     return redirect(reverse('admin:index'))
