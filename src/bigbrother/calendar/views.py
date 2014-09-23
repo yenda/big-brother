@@ -5,15 +5,25 @@ from django.views.generic.edit import CreateView
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
 
-from .models import Activity, Event
+from .models import Event
+from ..lecture.models import Lecture
+
+
+class TeacherActivityList(TemplateView):
+    template_name = 'calendar/teacher-classes.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(TeacherActivityList, self).get_context_data(**kwargs)
+        context['activities'] = Lecture.objects.filter(teachers=self.request.user)
+        return context
 
 
 class ActivityView(TemplateView):
-    template_name = 'activity.html'
+    template_name = 'calendar/activity.html'
 
     def get_context_data(self, **kwargs):
         context = super(ActivityView, self).get_context_data(**kwargs)
-        context['activity'] = get_object_or_404(Activity, id=kwargs["activity"])
+        context['activity'] = get_object_or_404(Lecture, id=kwargs["activity"])
         return context
 
 
@@ -29,5 +39,5 @@ class EventView(TemplateView):
 
 
 class CreateEventView(CreateView):
-    template_name = "create-event.html"
+    template_name = "calendar/create-event.html"
     model = Event

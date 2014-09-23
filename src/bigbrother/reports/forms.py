@@ -1,17 +1,14 @@
-from django.forms import CheckboxSelectMultiple
-from django.utils.html import format_html
-from django.utils.safestring import mark_safe
-
 __author__ = 'yenda'
 
 from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.forms import CheckboxSelectMultiple
 
 
 class MyModelMultipleChoiceField(forms.ModelMultipleChoiceField):
     def label_from_instance(self, obj):
-        return {"image": obj.image_url(), "name": "%s %s" % (obj.first_name, obj.last_name)}
+        return {"image": obj.image_url(), "name": obj.get_full_name()}
 
 
 class ReportForm(forms.Form):

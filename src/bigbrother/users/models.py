@@ -1,7 +1,10 @@
 __author__ = 'yenda'
+
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import ugettext_lazy as _
+
+from ..lecture.models import Teacher
 
 
 class User(AbstractUser):
@@ -13,5 +16,9 @@ class User(AbstractUser):
     def image_url(self):
         return "bigbrother/img/trombi/{0}-{1}.jpg".format(self.last_name.lower(), self.first_name.lower())
 
-    def is_instructor(self):
-        return self.groups.filter(name="instructor").exists()
+    def is_teacher(self):
+        print Teacher.objects.filter(user=self).exists()
+        return Teacher.objects.filter(user=self).exists()
+
+    def is_teacher_in(self, lecture):
+        return Teacher.objects.filter(user=self, lecture=lecture).exists()

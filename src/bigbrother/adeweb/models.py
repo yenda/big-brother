@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 
 
-def user_factory(username, adeweb_id, email=None, group="student"):
+def user_factory(username, adeweb_id, email=None):
     user = get_user_model().objects.filter(adeweb_id=adeweb_id)
     if user.exists():
         return user[0]
@@ -18,8 +18,6 @@ def user_factory(username, adeweb_id, email=None, group="student"):
                                                last_name=last_name,
                                                email=email,
                                                adeweb_id=adeweb_id)
-        group = Group.objects.get(name=group)
-        user.groups.add(group)
     return user
 
 

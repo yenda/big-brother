@@ -171,6 +171,7 @@ INSTALLED_APPS = [
     'bigbrother.institution',
     'bigbrother.reports',
     'bigbrother.calendar',
+    'bigbrother.lecture',
 
 ]
 

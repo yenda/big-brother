@@ -3,7 +3,16 @@
 {% load static from staticfiles %}
 
 {% block content %}
-<h1>Activity : {{ event.activity.name }}</h1>
+<h1>
+    Activity : {{ event.lecture.name }}
+    {% if user.is_teacher %}
+        {% if event.report %}
+            <a class="btn btn-danger" href={% url "event-report" event.pk %}><span class="glyphicon glyphicon-bullhorn"></span> Edit absences</a>
+        {% else %}
+            <a class="btn btn-danger" href={% url "event-create-report" event.pk %}><span class="glyphicon glyphicon-bullhorn"></span> Make a report for absences</a>
+        {% endif %}
+    {% endif %}
+</h1>
         <h2>
             <small>
                 {{ event.start }} - {{ event.end }}
@@ -15,30 +24,8 @@
 <ul>
 {% for teacher in teachers %}
     <li>{{ teacher.first_name }} {{ teacher.last_name }}</li>
-    {% if user.is_instructor %}
-        {% if event.report %}
-            <a class="btn btn-danger" href={% url "event-report" event.pk %}>Edit absences</a>
-        {% else %}
-            <a class="btn btn-danger" href={% url "event-report" event.pk %}>Make a report for absences</a>
-        {% endif %}
-    {% endif %}
 {% endfor %}
 </ul>
 
-{% if message %}
-    {% if success %}
-        <div class="alert alert-success">Les absences ont bien été enregistrées<br>Validez en utilisant le lien <a href="{{ link }}">suivant</a></div>
-    {% else %}
-        <div class="alert alert-danger">Un incident est survenu lors de l'enregistrement</div>
-    {% endif %}
-{% else %}
-    {% for student in students %}
-            <div class="col-md-3">
-                <a  href="{% url "student" student.adeweb_id %}" >
-                    {{ student.first_name }} {{ student.last_name }}
-                    <img src="{% static student.image_url %}" style="width: 70%; height: 70%;">
-                </a>
-            </div>
-    {% endfor %}
-{% endif %}
+
 {% endblock content %}

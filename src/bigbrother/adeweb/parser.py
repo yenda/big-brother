@@ -9,8 +9,9 @@ from datetime import datetime
 from django.contrib.auth import get_user_model
 
 from .models import user_factory
-from ..calendar.models import Activity, Event
+from ..calendar.models import Event
 from ..institution.models import Membership, Classroom
+from ..lecture.models import Lecture, Teacher
 
 
 class SaxParsingResources(xml.sax.ContentHandler):
@@ -30,13 +31,13 @@ class SaxParsingResources(xml.sax.ContentHandler):
                 self.name = attrs.getValue('name')
                 self.adeweb_id = attrs.getValue('id')
                 email = attrs.getValue('email')
-                self.student = user_factory(username=self.name, adeweb_id=self.adeweb_id, email=email, group="student")
+                self.student = user_factory(username=self.name, adeweb_id=self.adeweb_id, email=email)
             elif attrs.getValue('category') and attrs.getValue('category') == 'instructor':
                 self.student = None
                 name = attrs.getValue('name')
                 adeweb_id = attrs.getValue('id')
                 email = attrs.getValue('email')
-                user_factory(username=name, adeweb_id=adeweb_id, email=email, group="instructor")
+                user_factory(username=name, adeweb_id=adeweb_id, email=email)
         elif name == "membership":
             if self.student:
                 group, created = Membership.objects.get_or_create(name=attrs.getValue('name'),
@@ -51,16 +52,17 @@ class SaxParsingActivities(xml.sax.ContentHandler):
 
     def __init__(self):
         xml.sax.ContentHandler.__init__(self)
-        self.nameActivity = None
+        self.lecture_name = None
+        self.lecture = None
         self.type = None
         self.activity = None
         self.event = None
 
     def startElement(self, name, attrs):
         if name == "activity":
-            self.nameActivity = attrs.getValue('name')
+            self.lecture_name = attrs.getValue('name')
             self.type = attrs.getValue('type')
-            self.activity, created = Activity.objects.get_or_create(name=self.nameActivity, type=self.type)
+            self.lecture, created = Lecture.objects.get_or_create(name=self.lecture_name)
 
         elif name == "event":
             date = datetime.strptime(attrs.getValue("date"), "%d/%m/%Y")
@@ -69,7 +71,8 @@ class SaxParsingActivities(xml.sax.ContentHandler):
             time = datetime.strptime(attrs.getValue("endHour"), "%H:%M")
             end = date.replace(hour=time.hour, minute=time.minute, second=0)
             adeweb_id = attrs.getValue("id")
-            self.event, created = Event.objects.get_or_create(activity=self.activity,
+            self.event, created = Event.objects.get_or_create(lecture=self.lecture,
+                                                              type=self.type,
                                                               adeweb_id=adeweb_id,
                                                               start=start,
                                                               end=end)
@@ -83,6 +86,7 @@ class SaxParsingActivities(xml.sax.ContentHandler):
                     adeweb_id = attrs.getValue('id')
                     teacher = get_user_model().objects.get(adeweb_id=adeweb_id)
                     self.event.teachers.add(teacher)
+                    Teacher.objects.get_or_create(lecture=self.lecture, user=teacher)
                 except get_user_model().DoesNotExist:
                     pass
             elif attrs.getValue('category') == "trainee":

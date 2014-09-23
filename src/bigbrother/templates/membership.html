@@ -6,11 +6,10 @@
 {% if number_students %}
     <h1>{{ number_students }} Students in {{ membership }}</h1>
     {% if students %}
-        <h1>Memberships</h1>
             <ul class="list-group">
             {% for student in students %}
                 <a class="list-group-item"  href={% url "student" student.adeweb_id %} >
-                    <h4>{{ student.name }}</h4>
+                    <h4>{{ student.first_name }} {{ student.last_name }}</h4>
                 </a>
             {% endfor %}
             </ul>
@@ -20,12 +19,6 @@
 {% endif %}
 
 <h1>10 prochains cours</h1>
-    <ul class="list-group">
-    {% for activity in activities %}
-        <a class="list-group-item"  href={% url "activity" activity.adeweb_id %} >
-            <h4>{{ activity.name }}</h4>
-        </a>
-    {% endfor %}
-    </ul>
+{% include "events.html" %}
 
 {% endblock content %}

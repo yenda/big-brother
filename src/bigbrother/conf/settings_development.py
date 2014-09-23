@@ -75,6 +75,7 @@ SKIP_SOUTH_TESTS = True
 
 #
 # Adeweb backend
+# use 'bigbrother.adeweb.backends.dummy.API' for testing purposes
 #
 ADEWEB_API={
     'BACKEND': 'bigbrother.adeweb.backends.dummy.API',

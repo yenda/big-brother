@@ -1,38 +1,25 @@
-{% extends "master.html" %}
+{% extends "reports/report-base.html" %}
 {% load bootstrap3 %}
 {% load static from staticfiles %}
 
-{% block content %}
-<h1>Activity : {{ event.activity.name }}</h1>
-        <h2>
-            <small>
-                {{ event.start }} - {{ event.end }}
-                salles : {% for classroom in event.classrooms.all %}{{ classroom.name }} | {% endfor %}
-            </small>
-        </h2>
-
-<h3>Enseignants :</h3>
-<ul>
-{% for teacher in teachers %}
-    <li>{{ teacher.first_name }} {{ teacher.last_name }}</li>
-    {% if user.is_instructor %}
-    <a class="btn btn-danger" href={% url "event-report" event.pk %}>Make a report for absences</a>
-    {% endif %}
-{% endfor %}
-</ul>
-<form action="" method="post">
-    {% csrf_token %}
-        {% for pk, choice in form.students.field.widget.choices %}
-        <div class="col-md-2">
-            <img src="{% static choice.image %}" style="width: 130px; height: 160px;">
-            <input type="checkbox" value="{{ pk }}" id="id_students_{{ forloop.counter0 }}" name="students" />
-            <label for="form_students" >{{ choice.name }}</label>
-        </div>
-        {% endfor %}
+{% block subcontent %}
+    <h3>List of absentees for this class : </h3>
     <div class="col-md-12">
-    <input type="submit" value="Send report" />
+    Total : {{ absences.count }}
     </div>
-</form>
-
-
-{% endblock content %}
+    <br>
+    <br>
+    {% for absence in absences %}
+        <div class="col-md-4">
+            <a  href="{% url "absence-update" absence.pk %}" >
+                <img src="{% static absence.student.image_url %}">
+                <br>{{ absence.student.first_name }} {{ absence.student.last_name }}
+                {% if absence.excused %}
+                    (<span style="color: green">EXCUSED</span>)
+                {% endif %}
+            </a>
+        </div>
+    {% empty %}
+        There was no absentees during this class
+    {% endfor %}
+{% endblock subcontent %}
