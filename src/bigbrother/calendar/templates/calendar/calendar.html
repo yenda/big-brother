@@ -12,7 +12,7 @@
 <div class=list-group">
   <h2 class="list-group-item heading">Today</h2>
     {% for event in today %}
-          <a href="#" class="list-group-item">{{ event.lecture.name }}</a>
+          <a href="{% url "event" event.pk %}" class="list-group-item">{{ event.lecture.name }}</a>
     {% endfor %}
 </div>
 

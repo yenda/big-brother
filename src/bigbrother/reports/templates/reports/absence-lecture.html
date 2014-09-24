@@ -18,7 +18,7 @@
 <div class=list-group">
 {% for event in events %}
         <a href="{% url "event-report" event.pk %}" class="list-group-item">
-        {{ event.start }} - {{ event.end }}
+        Séance du {{ event.start.day }}/{{ event.start.month }} de {{ event.start.hour }}h à {{ event.end.hour }}h
         {% if event.report %}
             {% with event.absences.count as count %}
             <span class="badge" style="background-color: #d9534f">{{ event.absences.count }} absence{% if count > 1 %}s{% endif %}</span>
@@ -36,27 +36,17 @@
 
     <script>
     var data = {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
+        labels: [{% for event in events %}"{{ event.start.day }}/{{ event.start.month }}",{% endfor %}],
         datasets: [
             {
-                label: "My First dataset",
-                fillColor: "rgba(220,220,220,0.2)",
-                strokeColor: "rgba(220,220,220,1)",
-                pointColor: "rgba(220,220,220,1)",
-                pointStrokeColor: "#fff",
-                pointHighlightFill: "#fff",
-                pointHighlightStroke: "rgba(220,220,220,1)",
-                data: [65, 59, 80, 81, 56, 55, 40]
-            },
-            {
-                label: "My Second dataset",
+                label: "Absences",
                 fillColor: "rgba(151,187,205,0.2)",
                 strokeColor: "rgba(151,187,205,1)",
                 pointColor: "rgba(151,187,205,1)",
                 pointStrokeColor: "#fff",
                 pointHighlightFill: "#fff",
                 pointHighlightStroke: "rgba(151,187,205,1)",
-                data: [28, 48, 40, 19, 86, 27, 90]
+                data: [{% for event in events %}"{{ event.absences.count }}",{% endfor %}]
             }
         ]
     };
@@ -66,8 +56,7 @@
 
     // Get the context of the canvas element we want to select
     var ctx = document.getElementById("myChart").getContext("2d");
-    var myLineChart = new Chart(ctx).Line(data, options);
-</script>
+    var myBarChart = new Chart(ctx).Bar(data, options);</script>
 
 
 {% endblock %}

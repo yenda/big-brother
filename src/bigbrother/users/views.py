@@ -12,7 +12,7 @@ class StudentView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(StudentView, self).get_context_data(**kwargs)
-        context['student'] = get_object_or_404(get_user_model(), adeweb_id=kwargs["student"])
+        context['student'] = get_object_or_404(get_user_model(), pk=kwargs["student"])
         context['events'] = Event.objects.filter(memberships__students=context['student'])
         return context
 

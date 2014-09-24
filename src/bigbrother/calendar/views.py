@@ -5,7 +5,7 @@ from django.views.generic.edit import CreateView
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
 
-from datetime import datetime
+from datetime import timedelta, date
 
 from .models import Event
 
@@ -15,7 +15,7 @@ class CalendarView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(CalendarView, self).get_context_data(**kwargs)
-        context['today'] = Event.objects.filter(start__gt=datetime.today())
+        context['today'] = Event.objects.filter(start__gt=date.today(), start__lte=date.today() + timedelta(days=1))
         context['tomorrow'] = Event.objects.filter()
         context['week'] = Event.objects.filter()
         return context
@@ -26,7 +26,7 @@ class EventView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(EventView, self).get_context_data(**kwargs)
-        context['event'] = get_object_or_404(Event, adeweb_id=kwargs["event"])
+        context['event'] = get_object_or_404(Event, pk=kwargs["event"])
         context['teachers'] = get_user_model().objects.filter(events=context["event"])
         context['students'] = get_user_model().objects.filter(memberships__events=context["event"])
         return context

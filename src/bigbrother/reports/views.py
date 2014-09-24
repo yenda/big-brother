@@ -7,6 +7,8 @@ from django.shortcuts import get_object_or_404
 from django.utils.functional import cached_property
 from django.core.urlresolvers import reverse
 
+from datetime import datetime
+
 from ..lecture.models import Lecture
 from ..calendar.models import Event
 from ..institution.models import Membership
@@ -101,7 +103,7 @@ class AbsenceLectureView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(AbsenceLectureView, self).get_context_data()
         context["lecture"] = self.lecture
-        context["events"] = Event.objects.filter(lecture=self.lecture).order_by("start")
+        context["events"] = Event.objects.filter(lecture=self.lecture, start__lte=datetime.today()).order_by("start")
         context["absences"] = Absence.objects.filter(event__lecture=self.lecture)
         return context
 

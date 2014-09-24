@@ -24,7 +24,7 @@
             <h1>Students</h1>
                 <ul class="list-group">
                 {% for student in students %}
-                    <a class="list-group-item"  href={% url "student" student.adeweb_id %} >
+                    <a class="list-group-item"  href={% url "student" student.pk %} >
                         <h4>{{ student.first_name }} {{ student.last_name }}</h4>
                     </a>
                 {% endfor %}

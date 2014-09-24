@@ -18,6 +18,7 @@ class ReportForm(forms.Form):
 
     students = MyModelMultipleChoiceField(settings.AUTH_USER_MODEL,
                                           widget=CheckboxSelectMultiple,
+                                          required=False
                                           )
 
     def __init__(self, *args, **kwargs):
@@ -28,6 +29,8 @@ class ReportForm(forms.Form):
     def clean_students(self):
         """ Validate that the pension takes pet.species """
         students_pk = self.cleaned_data.get('students')
+        if not students_pk:
+            return []
         students = get_user_model().objects.filter(memberships__in=self.event.memberships.all(), pk__in=students_pk)
         if not students:
             raise forms.ValidationError(self.error_messages['unexpected_students'])
