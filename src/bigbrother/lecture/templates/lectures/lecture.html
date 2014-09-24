@@ -5,5 +5,7 @@
 
 <h1>Lecture : {{ lecture.name }}</h1>
 
+    <a class="btn btn-danger" href="{% url "absence-lecture" lecture.pk %}" >{% bootstrap_icon "bullhorn"%} Absences for this lecture</a>
+
 
 {% endblock content %}

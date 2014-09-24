@@ -3,7 +3,7 @@
 {% load static from staticfiles %}
 
 {% block content %}
-<h1>Lecture : {{ event.lecture.name }}</h1>
+<h1>Report for : {{ event.lecture.name }}</h1>
         <h2>
             <small>
                 {{ event.start }} - {{ event.end }}
@@ -20,5 +20,6 @@
 
 {% block subcontent %}
 {% endblock subcontent %}
+
 
 {% endblock content %}

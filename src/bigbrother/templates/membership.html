@@ -3,6 +3,11 @@
 
 {% block content %}
 
+<div class="jumbotron">
+  <h1>{{ membership }}</h1>
+  <p><a href="{% url "absence-membership" membership.pk %}" class="btn btn-danger btn-lg" role="button">Absences</a></p>
+</div>
+
 {% if number_students %}
     <h1>{{ number_students }} Students in {{ membership }}</h1>
     {% if students %}

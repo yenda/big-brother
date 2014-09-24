@@ -5,25 +5,19 @@ from django.views.generic.edit import CreateView
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
 
+from datetime import datetime
+
 from .models import Event
-from ..lecture.models import Lecture
 
 
-class TeacherActivityList(TemplateView):
-    template_name = 'calendar/teacher-classes.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(TeacherActivityList, self).get_context_data(**kwargs)
-        context['activities'] = Lecture.objects.filter(teachers=self.request.user)
-        return context
-
-
-class ActivityView(TemplateView):
-    template_name = 'calendar/activity.html'
+class CalendarView(TemplateView):
+    template_name = 'calendar/calendar.html'
 
     def get_context_data(self, **kwargs):
-        context = super(ActivityView, self).get_context_data(**kwargs)
-        context['activity'] = get_object_or_404(Lecture, id=kwargs["activity"])
+        context = super(CalendarView, self).get_context_data(**kwargs)
+        context['today'] = Event.objects.filter(start__gt=datetime.today())
+        context['tomorrow'] = Event.objects.filter()
+        context['week'] = Event.objects.filter()
         return context
 
 

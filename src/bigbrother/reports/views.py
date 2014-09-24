@@ -9,6 +9,7 @@ from django.core.urlresolvers import reverse
 
 from ..lecture.models import Lecture
 from ..calendar.models import Event
+from ..institution.models import Membership
 from .forms import ReportForm
 from .models import Absence
 
@@ -88,14 +89,8 @@ class StudentAbsenceList(TemplateView):
         pass
 
 
-class TeacherAbsenceList(TemplateView):
-    model = Absence
-
-    def get_queryset(self):
-        pass
-
-
-class LectureAbsenceList(TemplateView):
+class AbsenceLectureView(TemplateView):
+    template_name = "reports/absence-lecture.html"
     model = Absence
 
     @cached_property
@@ -104,6 +99,25 @@ class LectureAbsenceList(TemplateView):
         return get_object_or_404(Lecture, pk=pk)
 
     def get_context_data(self, **kwargs):
-        context = super(LectureAbsenceList, self).get_context_data()
-        context["absences"] = Absence.objects.filter(event_activity=self.lecture)
+        context = super(AbsenceLectureView, self).get_context_data()
+        context["lecture"] = self.lecture
+        context["events"] = Event.objects.filter(lecture=self.lecture).order_by("start")
+        context["absences"] = Absence.objects.filter(event__lecture=self.lecture)
+        return context
+
+
+class AbsenceMembershipView(TemplateView):
+    template_name = "reports/absence-membership.html"
+    model = Absence
+
+    @cached_property
+    def membership(self):
+        pk = self.kwargs['pk']
+        return get_object_or_404(Membership, pk=pk)
+
+    def get_context_data(self, **kwargs):
+        context = super(AbsenceMembershipView, self).get_context_data()
+        context["membership"] = self.membership
+        context["events"] = Event.objects.filter(memberships=self.membership).order_by("start")
+        context["absences"] = Absence.objects.filter(event__memberships=self.membership)
         return context

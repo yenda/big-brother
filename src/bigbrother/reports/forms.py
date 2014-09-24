@@ -17,7 +17,8 @@ class ReportForm(forms.Form):
     }
 
     students = MyModelMultipleChoiceField(settings.AUTH_USER_MODEL,
-                                          widget=CheckboxSelectMultiple)
+                                          widget=CheckboxSelectMultiple,
+                                          )
 
     def __init__(self, *args, **kwargs):
         self.event = kwargs.pop("event")

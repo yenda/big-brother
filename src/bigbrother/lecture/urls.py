@@ -1,7 +1,8 @@
 from django.conf.urls import patterns, url
 
-from .views import LectureView
+from .views import LectureView, UserLecturesView
 
 urlpatterns = patterns('',
-                       url(r'^(?P<lecture>[- \w]+)', LectureView.as_view(), name='lecture'),
+                       url(r'^$', UserLecturesView.as_view(), name='lectures'),
+                       url(r'^(?P<pk>[- \w]+)$', LectureView.as_view(), name='lecture'),
                        )

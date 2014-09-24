@@ -34,7 +34,7 @@
             <h1>Memberships</h1>
                 <ul class="list-group">
                 {% for membership in memberships %}
-                    <a class="list-group-item"  href={% url "membership" membership %} >
+                    <a class="list-group-item"  href={% url "membership" membership.pk %} >
                         <h4>{{ membership.name }}</h4>
                     </a>
                 {% endfor %}

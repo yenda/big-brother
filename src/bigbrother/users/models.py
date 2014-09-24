@@ -17,7 +17,6 @@ class User(AbstractUser):
         return "bigbrother/img/trombi/{0}-{1}.jpg".format(self.last_name.lower(), self.first_name.lower())
 
     def is_teacher(self):
-        print Teacher.objects.filter(user=self).exists()
         return Teacher.objects.filter(user=self).exists()
 
     def is_teacher_in(self, lecture):

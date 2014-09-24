@@ -1,26 +1,31 @@
 __author__ = 'yenda'
 
-from django.views.generic import TemplateView
-from django.views.generic.edit import CreateView
-from django.shortcuts import get_object_or_404
-from django.contrib.auth import get_user_model
+from django.views.generic import TemplateView, DetailView
 
 from .models import Lecture
+from ..calendar.models import Event
 
 
-class TeacherLecturesList(TemplateView):
-    template_name = 'classes/teacher-classes.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(TeacherLecturesList, self).get_context_data(**kwargs)
-        context['activities'] = Lecture.objects.filter(teachers=self.request.user)
-        return context
-
-
-class LectureView(TemplateView):
-    template_name = 'classes/activity.html'
+class LectureView(DetailView):
+    template_name = 'lectures/lecture.html'
+    context_object_name = "lecture"
+    model = Lecture
 
     def get_context_data(self, **kwargs):
         context = super(LectureView, self).get_context_data(**kwargs)
-        context['activity'] = get_object_or_404(Lecture, id=kwargs["activity"])
+        return context
+
+
+class UserLecturesView(TemplateView):
+    template_name = 'lectures/lectures.html'
+    context_object_name = "lectures"
+
+    def get_context_data(self, **kwargs):
+        context = super(UserLecturesView, self).get_context_data(**kwargs)
+        if self.request.user.is_teacher():
+            print "teacher"
+            context["lectures"] = Lecture.objects.filter(teachers=self.request.user).distinct()
+        else:
+            print "not teacher"
+            context["lectures"] = Lecture.objects.filter(events__memberships__students=self.request.user).distinct()
         return context

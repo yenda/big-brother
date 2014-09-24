@@ -14,6 +14,7 @@ class Lecture(models.Model):
     def __unicode__(self):  # Python 3: def __str__(self):
         return "%s" % self.name
 
+
 class Teacher(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     lecture = models.ForeignKey(Lecture)
