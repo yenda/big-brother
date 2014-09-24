@@ -1,3 +1,5 @@
+from django.contrib.auth import get_user_model
+
 __author__ = 'yenda'
 
 from django.views.generic import FormView, TemplateView
@@ -122,4 +124,20 @@ class AbsenceMembershipView(TemplateView):
         context["membership"] = self.membership
         context["events"] = Event.objects.filter(memberships=self.membership).order_by("start")
         context["absences"] = Absence.objects.filter(event__memberships=self.membership)
+        return context
+
+
+class AbsenceStudentView(TemplateView):
+    template_name = "reports/absence-student.html"
+    model = Absence
+
+    @cached_property
+    def student(self):
+        pk = self.kwargs['pk']
+        return get_object_or_404(get_user_model(), pk=pk)
+
+    def get_context_data(self, **kwargs):
+        context = super(AbsenceStudentView, self).get_context_data()
+        context["absences"] = Absence.objects.filter(student=self.student).order_by("-event__start")
+        context["excused"] = Absence.objects.filter(student=self.student).exclude(excuse="").count()
         return context
