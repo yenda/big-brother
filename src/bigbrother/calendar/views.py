@@ -16,8 +16,7 @@ class CalendarView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(CalendarView, self).get_context_data(**kwargs)
         context['today'] = Event.objects.filter(start__gt=date.today(), start__lte=date.today() + timedelta(days=1))
-        context['tomorrow'] = Event.objects.filter()
-        context['week'] = Event.objects.filter()
+        context['events'] = Event.objects.filter()
         return context
 
 

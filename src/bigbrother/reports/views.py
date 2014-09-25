@@ -11,7 +11,7 @@ from django.core.urlresolvers import reverse
 
 from datetime import datetime
 
-from ..lecture.models import Lecture
+from ..lectures.models import Lecture
 from ..calendar.models import Event
 from ..institution.models import Membership
 from .forms import ReportForm

@@ -1,0 +1,14 @@
+{% extends "master.html" %}
+{% load bootstrap3 %}
+
+{% block content %}
+
+<div class="jumbotron">
+  <h1>{{ lecture.name }}</h1>
+  <p> <a class="btn btn-danger" href="{% url "absence-lecture" lecture.pk %}" >{% bootstrap_icon "bullhorn"%} Absences</a></p>
+</div>
+
+
+
+
+{% endblock content %}

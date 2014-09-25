@@ -21,7 +21,7 @@
         Séance du {{ event.start.day }}/{{ event.start.month }} de {{ event.start.hour }}h à {{ event.end.hour }}h
         {% if event.report %}
             {% with event.absences.count as count %}
-            <span class="badge" style="background-color: #d9534f">{{ event.absences.count }} absence{% if count > 1 %}s{% endif %}</span>
+            <span class="badge" style="background-color: {% if count == 0 %}#398439{% else %}#d9534f{% endif %}">{{ count }} absence{% if count > 1 %}s{% endif %}</span>
             {% endwith %}
         {% endif %}
         </a>

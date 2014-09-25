@@ -11,7 +11,7 @@ from .users import urls as accounts
 from .reports import urls as reports
 from .calendar import urls as calendar
 from .institution import urls as institution
-from .lecture import urls as lecture
+from .lectures import urls as lectures
 
 admin.autodiscover()
 
@@ -24,7 +24,7 @@ urlpatterns = patterns('',
     url(r'^reports/', include(reports)),
     url(r'^calendar/', include(calendar)),
     url(r'^institution/', include(institution)),
-    url(r'^lecture/', include(lecture)),
+    url(r'^lectures/', include(lectures)),
     url(r'^search$', SearchView.as_view(), name='search'),
     url(r'^', HomeView.as_view()),
     # Simply show the master template.

@@ -3,33 +3,63 @@
 {% load static from staticfiles %}
 
 {% block extra_css %}
-{% endblock %}
 
+{% endblock %}
 {% block content %}
 
-<div class="jumbotron">
-  <h1>My Schedule</h1>
-</div>
+<link href='{% static "bigbrother/lib/fullcalendar-2.1.1/fullcalendar.css" %}' rel='stylesheet' />
+<link href='{% static "bigbrother/lib/fullcalendar-2.1.1/fullcalendar.print.css" %}' rel='stylesheet' media='print' />
+<script src='{% static "bigbrother/lib/fullcalendar-2.1.1/lib/jquery.min.js" %}'></script>
+<script src='{% static "bigbrother/lib/fullcalendar-2.1.1/lib/moment.min.js" %}'></script>
+<script src='{% static "bigbrother/lib/fullcalendar-2.1.1/fullcalendar.min.js" %}'></script>
 
-<div class=list-group">
-  <h2 class="list-group-item heading">Today</h2>
-    {% for event in today %}
-          <a href="{% url "event" event.pk %}" class="list-group-item">{{ event.lecture.name }}</a>
-    {% endfor %}
-</div>
+<script>
 
-<div class=list-group">
-  <h2 class="list-group-item heading">Tomorrow</h2>
-    {% for event in tomorrow %}
-          <a href="#" class="list-group-item">{{ event.lecture.name }}</a>
-    {% endfor %}
-</div>
+	$(document).ready(function() {
 
-<div class=list-group">
-  <h2 class="list-group-item heading">This week</h2>
-    {% for event in week %}
-          <a href="#" class="list-group-item">{{ event.lecture.name }}</a>
-    {% endfor %}
-</div>
+		$('#calendar').fullCalendar({
+			defaultDate: '{% now "Y-m-d" %}',
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,agendaDay'
+			},
+            defaultView: 'agendaDay',
+			editable: false,
+			eventLimit: true, // allow "more" link when too many events
+			events: [
+                {% for event in events %}
+				{
+                    id: '{{ event.pk }}',
+					title: '{{ event.lecture.name }}\n{% for teacher in event.teachers.all %}{{ teacher.get_full_name }} {% endfor %}\n{% for classroom in event.classrooms.all %}{{ classroom.name }} {% endfor %}',
+					url: '{% url "lecture" event.lecture.pk %}',
+					start: '{{ event.start|date:"c" }}',
+                    end: '{{ event.end|date:"c" }}'
+				},
+                {% endfor %}
+			]
+		});
+
+	});
+
+</script>
+<style>
+
+	body {
+		margin: 40px 10px;
+		padding: 0;
+		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+		font-size: 14px;
+	}
+
+	#calendar {
+		max-width: 900px;
+		margin: 0 auto;
+	}
+
+</style>
+
+	<div id='calendar'></div>
+
 
 {% endblock %}

@@ -11,7 +11,7 @@ from django.contrib.auth import get_user_model
 from .models import user_factory
 from ..calendar.models import Event
 from ..institution.models import Membership, Classroom
-from ..lecture.models import Lecture, Teacher
+from ..lectures.models import Lecture, Teacher
 
 
 class SaxParsingResources(xml.sax.ContentHandler):

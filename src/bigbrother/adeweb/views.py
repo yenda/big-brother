@@ -12,7 +12,7 @@ import xml
 
 from ..reports.models import Absence
 from ..calendar.models import Event
-from ..lecture.models import Lecture
+from ..lectures.models import Lecture
 from ..institution.models import Classroom, Membership
 
 

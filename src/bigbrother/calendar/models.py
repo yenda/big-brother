@@ -1,11 +1,10 @@
 __author__ = 'yenda'
 
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 
 from ..institution.models import Membership, Classroom
-from ..lecture.models import Lecture
+from ..lectures.models import Lecture
 
 
 class Event(models.Model):

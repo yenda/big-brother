@@ -4,7 +4,18 @@
 
 {% block content %}
 <h1>
-    Activity : {{ event.lecture.name }}
+
+<div class="jumbotron">
+  <a href="{% url "lecture" event.lecture.pk %}"><h1>{{ event.lecture.name }}</h1></a>
+        <h2>
+            <small>
+                {{ event.start }} - {{ event.end }}
+                salles : {% for classroom in event.classrooms.all %}{{ classroom.name }} | {% endfor %}
+            </small>
+        </h2>
+</div>
+
+
     {% if user.is_teacher %}
         {% if event.report %}
             <a class="btn btn-danger" href={% url "event-report" event.pk %}><span class="glyphicon glyphicon-bullhorn"></span> Edit absences</a>
@@ -13,12 +24,7 @@
         {% endif %}
     {% endif %}
 </h1>
-        <h2>
-            <small>
-                {{ event.start }} - {{ event.end }}
-                salles : {% for classroom in event.classrooms.all %}{{ classroom.name }} | {% endfor %}
-            </small>
-        </h2>
+
 
 <h3>Enseignants :</h3>
 <ul>
