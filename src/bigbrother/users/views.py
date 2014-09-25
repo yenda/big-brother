@@ -15,7 +15,7 @@ class StudentView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(StudentView, self).get_context_data(**kwargs)
-        context['student'] = get_object_or_404(AUTH_USER_MODEL, pk=kwargs["student"])
+        context['student'] = get_object_or_404(get_user_model(), pk=kwargs["student"])
         context['events'] = Event.objects.filter(memberships__students=context['student'])
         return context
 
@@ -25,7 +25,7 @@ class TeacherView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(TeacherView, self).get_context_data(**kwargs)
-        context['teacher'] = get_object_or_404(AUTH_USER_MODEL, adeweb_id=kwargs["teacher"])
+        context['teacher'] = get_object_or_404(get_user_model(), adeweb_id=kwargs["teacher"])
         context['events'] = Event.objects.filter(teachers=context["teacher"])
         return context
 
