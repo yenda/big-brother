@@ -2,6 +2,7 @@ __author__ = 'yenda'
 
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.contrib.auth.hashers import make_password
 
 
 def user_factory(username, adeweb_id, email=None):
@@ -13,6 +14,7 @@ def user_factory(username, adeweb_id, email=None):
         last_name, first_name = username.split()
         username = '{0}.{1}'.format(first_name.lower(), last_name.lower())
         user = get_user_model().objects.create(username=username,
+                                               password=make_password("password"),
                                                first_name=first_name,
                                                last_name=last_name,
                                                email=email,
