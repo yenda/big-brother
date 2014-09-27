@@ -10,7 +10,7 @@ from django.conf import settings
 
 import xml
 
-from reports.models import Absence
+from absences.models import Absence
 from cal.models import Event
 from lectures.models import Lecture
 from institution.models import Classroom, Membership

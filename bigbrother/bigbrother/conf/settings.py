@@ -160,7 +160,7 @@ INSTALLED_APPS = [
     'adeweb',
     'users',
     'institution',
-    'reports',
+    'absences',
     'cal',
     'lectures',
 

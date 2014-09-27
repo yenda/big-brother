@@ -34,7 +34,7 @@ class EventMixin(object):
 
 
 class EventReportView(EventMixin, TemplateView):
-    template_name = 'reports/event-report.html'
+    template_name = 'absences/event-absences.html'
     success_url = "/"
 
     def get_context_data(self, **kwargs):
@@ -44,7 +44,7 @@ class EventReportView(EventMixin, TemplateView):
 
 
 class EventCreateReportView(EventMixin, FormView):
-    template_name = 'reports/event-create-report.html'
+    template_name = 'absences/event-create-absences.html'
     form_class = ReportForm
     success_url = "/"
 
@@ -66,7 +66,7 @@ class EventCreateReportView(EventMixin, FormView):
 
 
 class AbsenceUpdateView(EventMixin, UpdateView):
-    template_name = "reports/absence-update.html"
+    template_name = "absences/absence-update.html"
     fields = ["excuse", ]
     model = Absence
 
@@ -77,7 +77,7 @@ class AbsenceUpdateView(EventMixin, UpdateView):
 
 
 class AbsenceDeleteView(EventMixin, DeleteView):
-    template_name = "reports/absence-delete.html"
+    template_name = "absences/absence-delete.html"
     model = Absence
 
     def get_success_url(self):
@@ -94,7 +94,7 @@ class StudentAbsenceList(TemplateView):
 
 
 class AbsenceLectureView(TemplateView):
-    template_name = "reports/absence-lecture.html"
+    template_name = "absences/absence-lecture.html"
     model = Absence
 
     @cached_property
@@ -111,7 +111,7 @@ class AbsenceLectureView(TemplateView):
 
 
 class AbsenceMembershipView(TemplateView):
-    template_name = "reports/absence-membership.html"
+    template_name = "absences/absence-membership.html"
     model = Absence
 
     @cached_property
@@ -128,7 +128,7 @@ class AbsenceMembershipView(TemplateView):
 
 
 class AbsenceStudentView(TemplateView):
-    template_name = "reports/absence-student.html"
+    template_name = "absences/absence-student.html"
     model = Absence
 
     @cached_property

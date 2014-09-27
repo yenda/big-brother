@@ -3,7 +3,7 @@ from django.contrib import admin
 
 from adeweb import urls as adeweb
 from users import urls as accounts
-from reports import urls as reports
+from absences import urls as reports
 from cal import urls as calendar
 from institution import urls as institution
 from lectures import urls as lectures
