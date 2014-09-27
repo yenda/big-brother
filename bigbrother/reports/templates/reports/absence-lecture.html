@@ -1,0 +1,62 @@
+{% extends "master.html" %}
+{% load bootstrap3 %}
+{% load static from staticfiles %}
+
+{% block content %}
+
+<h1><a href={% url "lecture" lecture.pk %}>Absences in {{ lecture.name }}</a></h1>
+
+
+<div style="text-align: center">
+    <canvas id="myChart" width="800" height="400"></canvas>
+</div>
+
+
+    <br>
+    <br>
+
+<div class=list-group">
+{% for event in events %}
+        <a href="{% url "event-report" event.pk %}" class="list-group-item">
+        Séance du {{ event.start.day }}/{{ event.start.month }} de {{ event.start.hour }}h à {{ event.end.hour }}h
+        {% if event.report %}
+            {% with event.absences.count as count %}
+            <span class="badge" style="background-color: {% if count == 0 %}#398439{% else %}#d9534f{% endif %}">{{ count }} absence{% if count > 1 %}s{% endif %}</span>
+            {% endwith %}
+        {% endif %}
+        </a>
+{% endfor %}
+</div>
+
+{% endblock content %}
+
+{% block extra_js %}
+
+<script src="{% static 'bigbrother/js/Chart.min.js' %}"></script>
+
+    <script>
+    var data = {
+        labels: [{% for event in events %}"{{ event.start.day }}/{{ event.start.month }}",{% endfor %}],
+        datasets: [
+            {
+                label: "Absences",
+                fillColor: "rgba(151,187,205,0.2)",
+                strokeColor: "rgba(151,187,205,1)",
+                pointColor: "rgba(151,187,205,1)",
+                pointStrokeColor: "#fff",
+                pointHighlightFill: "#fff",
+                pointHighlightStroke: "rgba(151,187,205,1)",
+                data: [{% for event in events %}"{{ event.absences.count }}",{% endfor %}]
+            }
+        ]
+    };
+
+    var options = {
+    };
+
+    // Get the context of the canvas element we want to select
+    var ctx = document.getElementById("myChart").getContext("2d");
+    var myBarChart = new Chart(ctx).Bar(data, options);</script>
+
+
+{% endblock %}

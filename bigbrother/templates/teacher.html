@@ -1,0 +1,9 @@
+{% extends "master.html" %}
+{% load bootstrap3 %}
+
+{% block content %}
+<h1>Teacher : {{ teacher.first_name }} {{ teacher.last_name }}</h1>
+
+{% include "events.html" %}
+
+{% endblock content %}

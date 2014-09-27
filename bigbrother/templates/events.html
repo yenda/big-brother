@@ -1,0 +1,7 @@
+    <ul class="list-group">
+    {% for event in events %}
+        <a class="list-group-item" href={% url "event" event.pk %}>
+            <h4>{{ event.lecture.name }} <small>{{ event.start }}</small></h4>
+        </a>
+    {% endfor %}
+    </ul>

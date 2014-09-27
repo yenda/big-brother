@@ -1,0 +1,13 @@
+{% extends "master.html" %}
+{% load bootstrap3 %}
+{% load static from staticfiles %}
+
+{% block content %}
+
+<div class="jumbotron">
+  <h1>{{ student.first_name }} {{ student.last_name }}</h1>
+</div>
+
+{% include "events.html" %}
+
+{% endblock content %}

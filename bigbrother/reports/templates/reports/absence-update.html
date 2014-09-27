@@ -1,0 +1,16 @@
+{% extends "reports/absence-base.html" %}
+{% load bootstrap3 %}
+{% load static from staticfiles %}
+
+{% block subcontent %}
+    <form action="" method="post" class="form">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% buttons %}
+            <button type="submit" class="btn btn-primary">
+                {% bootstrap_icon "star" %} Submit
+            </button>
+            <a class="btn btn-danger" href="{% url "absence-delete" absence.pk %}" >{% bootstrap_icon "trash" %} Delete</a>
+        {% endbuttons %}
+    </form>
+{% endblock subcontent %}

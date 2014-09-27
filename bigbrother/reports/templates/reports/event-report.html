@@ -1,0 +1,32 @@
+{% extends "reports/absence-base.html" %}
+{% load bootstrap3 %}
+{% load static from staticfiles %}
+
+{% block subcontent %}
+    {% if event.report %}
+        <h3>List of absentees for this class : </h3>
+        <div class="col-md-12">
+        Total : {{ absences.count }}
+        </div>
+        <br>
+        <br>
+        {% for absence in absences %}
+            <div class="col-md-4">
+                <a  href="{% url "absence-update" absence.pk %}" >
+                    <img src="{% static absence.student.image_url %}">
+                    <br>{{ absence.student.first_name }} {{ absence.student.last_name }}
+                    {% if absence.excused %}
+                        (<span style="color: green">EXCUSED</span>)
+                    {% endif %}
+                </a>
+            </div>
+        {% empty %}
+            There was no absentees during this class
+        {% endfor %}
+
+    {% else %}
+        <h2>No report for this event</h2>
+        <a class="btn btn-danger" href="{% url "event-create-report" event.pk %}" >{% bootstrap_icon "bullhorn"%} Create a report for this event</a>
+
+    {% endif %}
+{% endblock subcontent %}

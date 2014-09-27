@@ -1,0 +1,10 @@
+{% extends "master.html" %}
+{% load bootstrap3 %}
+
+{% block content %}
+
+{% for activity in activities %}
+<h1>Activity : {{ activity.name }}</h1>
+{% endfor %}
+
+{% endblock content %}

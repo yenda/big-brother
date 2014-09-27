@@ -1,0 +1,14 @@
+{% extends "reports/absence-base.html" %}
+{% load bootstrap3 %}
+{% load static from staticfiles %}
+
+{% block subcontent %}
+    <form action="" method="post">{% csrf_token %}
+        <p>Are you sure you want to delete "{{ object }}"?</p>
+        {% buttons %}
+            <button type="submit" class="btn btn-danger">
+                {% bootstrap_icon "trash" %} Delete
+            </button>
+        {% endbuttons %}
+    </form>
+{% endblock subcontent %}

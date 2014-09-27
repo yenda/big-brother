@@ -4,6 +4,7 @@
 *.db
 *.pyc
 *~
+bigbrother/db.sqlite3
 
 # xml files
 bigbrother/adeweb/activities.xml
