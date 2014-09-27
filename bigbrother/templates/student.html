@@ -6,6 +6,7 @@
 
 <div class="jumbotron">
   <h1>{{ student.first_name }} {{ student.last_name }}</h1>
+  <p> <a class="btn btn-danger" href="{% url "absence-student" student.pk %}" >{% bootstrap_icon "bullhorn"%} Absences</a></p>
 </div>
 
 {% include "events.html" %}

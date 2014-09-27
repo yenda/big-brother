@@ -47,7 +47,7 @@
                     <li><a href={% url 'calendar' %}><span class="glyphicon glyphicon-calendar"></span> My Schedule</a></li>
                         <li><a href={% url 'lectures' %}><span class="glyphicon glyphicon-book"></span> My Lectures</a></li>
                     {% if not user.is_teacher %}
-                        <li><a href={% url 'my-absences' user.pk %}><span class="glyphicon glyphicon-inbox"></span> My Absences</a></li>
+                        <li><a href={% url 'absence-student' user.pk %}><span class="glyphicon glyphicon-inbox"></span> My Absences</a></li>
                     {% endif %}
                     <li><a href="{% url "profile" %}">Welcome {{ user.username }}</a></li>
                     <li><a href={% url 'logout' %}>Logout</a></li>

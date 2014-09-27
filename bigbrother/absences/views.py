@@ -112,7 +112,6 @@ class AbsenceLectureView(TemplateView):
 
 class AbsenceMembershipView(TemplateView):
     template_name = "absences/absence-membership.html"
-    model = Absence
 
     @cached_property
     def membership(self):
@@ -129,7 +128,6 @@ class AbsenceMembershipView(TemplateView):
 
 class AbsenceStudentView(TemplateView):
     template_name = "absences/absence-student.html"
-    model = Absence
 
     @cached_property
     def student(self):
@@ -138,6 +136,7 @@ class AbsenceStudentView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(AbsenceStudentView, self).get_context_data()
+        context["student"] = self.student
         context["absences"] = Absence.objects.filter(student=self.student).order_by("-event__start")
         context["excused"] = Absence.objects.filter(student=self.student).exclude(excuse="").count()
         return context

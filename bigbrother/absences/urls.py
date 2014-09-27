@@ -11,7 +11,7 @@ urlpatterns = patterns('',
                        url(r'^absences/(?P<pk>[- \w]+)/update$', AbsenceUpdateView.as_view(), name='absence-update'),
                        url(r'^absences/(?P<pk>[- \w]+)/delete$', AbsenceDeleteView.as_view(), name='absence-delete'),
                        url(r'^absences/lecture/(?P<pk>[- \w]+)$', AbsenceLectureView.as_view(), name='absence-lecture'),
-                       url(r'^absences/student/(?P<pk>[- \w]+)$', AbsenceStudentView.as_view(), name='my-absences'),
+                       url(r'^absences/student/(?P<pk>[- \w]+)$', AbsenceStudentView.as_view(), name='absence-student'),
                        url(r'^absences/membership/(?P<pk>[- \w]+)$', AbsenceMembershipView.as_view(), name='absence-membership'),
                        )
 
