@@ -1,28 +1,16 @@
-# Developers
-.hg
+﻿# Developers
 .git
-.svn
 .idea/
-.sass-cache/
 *.db
 *.pyc
 *~
 
 # xml files
-src/bigbrother/adeweb/activities.xml
-src/bigbrother/adeweb/resources.xml
-
-# Javascript libraries
-/src/bigbrother/static/bigbrother/lib/bootstrap/*
-!/src/bigbrother/static/bigbrother/lib/bootstrap/dist
-/src/bigbrother/static/bigbrother/lib/font-awesome/*
-!/src/bigbrother/static/bigbrother/lib/font-awesome/css
-!/src/bigbrother/static/bigbrother/lib/font-awesome/fonts
-/src/bigbrother/static/bigbrother/lib/jquery/*
-!/src/bigbrother/static/bigbrother/lib/jquery/dist
+bigbrother/adeweb/activities.xml
+bigbrother/adeweb/resources.xml
 
 #trombi
-/src/bigbrother/static/bigbrother/img/trombi/*
+bigbrother/static/bigbrother/img/trombi/*
 
 # Environment
 settings_local.py

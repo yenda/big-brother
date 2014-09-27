@@ -1,16 +1,5 @@
-Django
+Django==1.7
 django-bootstrap3==4.2.0
 django-choices==1.1.12
-djangorestframework==2.3.
 Sphinx
-South
-Pillow
-django_compressor
-django-axes
-raven
-pytz
-django-colorful
-git+git://github.com/maykinmedia/django-maintenancemode.git
-
-hg+http://bitbucket.org/izi/django-admin-tools/
 

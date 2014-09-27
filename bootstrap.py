@@ -4,7 +4,6 @@
 import os
 import stat
 import sys
-import shutil
 from subprocess import call
 import argparse 
 from tempfile import mkstemp
@@ -17,7 +16,7 @@ Set up my development environment for me!
 project_name = 'bigbrother'
 
 parser = argparse.ArgumentParser(description=description)
-parser.add_argument('target', choices=['production','staging','test','development'],
+parser.add_argument('target', choices=['production', 'staging', 'test', 'development'],
                     help='production/staging/development')
 parser.add_argument('--project', default=project_name,
                     help='Name of the project in your src directory, "%s" by default' % project_name)
@@ -25,6 +24,7 @@ parser.add_argument('--env', default='env',
                     help='Directory name for virtualenv, "env" by default')
 
 args = parser.parse_args()
+
 
 def replace_or_append(file_path, search_val, replace_val):
     file_handle, abs_path = mkstemp()
@@ -46,10 +46,12 @@ def replace_or_append(file_path, search_val, replace_val):
     move(abs_path, file_path)    
     os.chmod(file_path, 436)
 
+
 def replace_wsgi_settings(target):
     path = os.path.join('src', project_name, 'wsgi.py')
     replace_or_append(path, 'os.environ.setdefault',
                       'os.environ.setdefault("DJANGO_SETTINGS_MODULE", "%s.conf.settings_%s")\n' % (project_name, target))
+
 
 def replace_manage_settings(target):
     path = os.path.join('src', project_name, 'manage.py')
@@ -72,11 +74,12 @@ def append_settings_activate(project, target, env):
         replace_or_append(path, 'set DJANGO_SETTINGS_MODULE=',
                           'set DJANGO_SETTINGS_MODULE=\n')
 
+
 def main():
     virtualenv = args.env
     if not hasattr(sys, 'real_prefix'):
         print('\n== Creating virtual environment ==\n')
-        call('virtualenv2 {0} --prompt="({1}-{2}) "'.format(virtualenv,
+        call('virtualenv {0} --prompt="({1}-{2}) "'.format(virtualenv,
                                                            args.project,
                                                            args.target),
              shell=True)

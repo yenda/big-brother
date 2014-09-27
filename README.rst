@@ -56,8 +56,8 @@ below.
 4. Activate your virtual environment and create the statics and database::
 
     $ source env/bin/activate
-    $ python src/manage.py collectstatic --link
-    $ python src/manage.py syncdb --migrate
+    $ python manage.py collectstatic --link
+    $ python manage.py migrate
 
 
 Developers
@@ -65,7 +65,7 @@ Developers
 
 Optionally, you can load demo data and extract demo media files::
 
-    $ python src/manage.py loaddata demo
+    $ python manage.py loaddata demo
     $ cd media
     $ tar -xzf demo.tgz
 
@@ -77,18 +77,6 @@ by this command::
 If you are making local, machine specific, changes, add them to 
 ``src/bigbrother/conf/settings_local.py``. You can base this file on
 the example file included in the same directory.
-
-Enable SASS/Compass::
-
-    $ compass watch
-
-For more information on SASS and Compass, see: http://compass-style.org/
-
-Get all Javascript libraries::
-
-    $ bower install
-
-For more information on Node.js, see: http://nodejs.org/
 
 
 Staging and production
@@ -118,7 +106,7 @@ When updating an existing installation:
     
 3. Update the statics and database::
 
-    $ python src/manage.py collectstatic --link
-    $ python src/manage.py syncdb --migrate
+    $ python manage.py collectstatic --link
+    $ python manage.py migrate
 
 
