@@ -19,8 +19,8 @@ class SearchView(TemplateView):
         context['form'] = SearchForm
         if search:
             context['search'] = search
-            context['teachers'] = get_user_model().objects.filter(username__icontains=search, lecture__isnull=False).distinct().orderby('last_name')
-            context['students'] = get_user_model().objects.filter(username__icontains=search, lecture__isnull=True).distinct().orderby('last_name')
+            context['teachers'] = get_user_model().objects.filter(username__icontains=search, lecture__isnull=False).distinct().order_by('last_name')
+            context['students'] = get_user_model().objects.filter(username__icontains=search, lecture__isnull=True).distinct().order_by('last_name')
             context['memberships'] = Membership.objects.filter(name__icontains=search)
 
             results = len(context['teachers']) + len(context['students']) + len(context['memberships'])
