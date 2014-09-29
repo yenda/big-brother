@@ -16,7 +16,7 @@ class CalendarView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(CalendarView, self).get_context_data(**kwargs)
         #context['today'] = Event.objects.filter(start__gt=date.today(), start__lte=date.today() + timedelta(days=1))
-        context['events'] = Event.objects.filter(teachers=self.request.user, memberships_students=self.request.user)
+        context['events'] = Event.objects.filter(teachers=self.request.user, memberships__students=self.request.user)
         return context
 
     @method_decorator(login_required)
