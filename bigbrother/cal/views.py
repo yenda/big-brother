@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.db.models import Q
 
 from .models import Event
 
@@ -16,7 +17,7 @@ class CalendarView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(CalendarView, self).get_context_data(**kwargs)
         #context['today'] = Event.objects.filter(start__gt=date.today(), start__lte=date.today() + timedelta(days=1))
-        context['events'] = Event.objects.filter(teachers=self.request.user, memberships__students=self.request.user)
+        context['events'] = Event.objects.filter(Q(teachers=self.request.user) | Q(memberships__students=self.request.user))
         return context
 
     @method_decorator(login_required)
