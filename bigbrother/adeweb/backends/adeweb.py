@@ -1,3 +1,5 @@
+import os
+
 __author__ = 'yenda'
 #TODO this file should use a config file instead of hard coded values
 
@@ -53,10 +55,12 @@ class API(GenericApi):
 
     def write_resources(self):
         resources = self.get_resources()
-        with open("resources.xml", 'wb') as f:
+        path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'resources.xml')
+        with open(path, 'wb') as f:
             f.write(resources)
 
     def write_activities(self):
         activities = self.get_activities()
-        with open("activities.xml", 'wb') as f:
+        path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'activities.xml')
+        with open(path, 'wb') as f:
             f.write(activities)
