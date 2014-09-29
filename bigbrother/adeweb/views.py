@@ -10,6 +10,7 @@ from django.conf import settings
 from django.contrib.admin.views.decorators import staff_member_required
 
 import xml
+import os
 
 from absences.models import Absence
 from cal.models import Event
@@ -22,7 +23,10 @@ def update_resources(self):
     api = load_api()
     api.connect()
     api.set_project()
-    resources = api.get_resources().encode('utf-8')
+    path = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../activities.xml')
+    with open(path, "r") as f:
+        resources = f.read()
+        resources = resources.encode('utf-8')
     xml.sax.parseString(resources, SaxParsingResources())
     api.disconnect()
     return redirect(reverse('admin:index'))
@@ -41,8 +45,11 @@ def update_activities(self):
     api = load_api()
     api.connect()
     api.set_project()
-    activities = api.get_activities().encode('utf-8')
-    xml.sax.parseString(activities, SaxParsingActivities())
+    path = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../activities.xml')
+    with open(path, "r") as f:
+        activities = f.read()
+        activities = activities.encode('utf-8')
+        xml.sax.parseString(activities, SaxParsingActivities())
     api.disconnect()
     return redirect(reverse('admin:index'))
 
