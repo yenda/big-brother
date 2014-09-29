@@ -14,14 +14,14 @@ class API(object):
         url = b"https://adeweb.univ-lorraine.fr/jsp/webapi?function=connect&login=ade_projet_etu&password=;projet_2014"
         response = urlopen(url)
 
-        xmldoc = parse(url)
+        xmldoc = parse(response)
         self.sessionId = xmldoc.getElementsByTagName('session')[0].attributes['id'].value
 
     def disconnect(self):
         url = b"https://adeweb.univ-lorraine.fr/jsp/webapi?sessionId="+self.sessionId+"&function=disconnect"
         response = urlopen(url)
 
-        xmldoc = parse(url)
+        xmldoc = parse(response)
         if xmldoc.getElementsByTagName('disconnected')[0].attributes['sessionId'].value == self.sessionId:
             self.sessionId = None
             return self.sessionId
