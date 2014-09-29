@@ -14,7 +14,6 @@ class API(object):
         url = "https://adeweb.univ-lorraine.fr/jsp/webapi?function=connect&login=ade_projet_etu&password=;projet_2014"
         request = Request(url)
         response = urlopen(request)
-
         xmldoc = parse(response)
         self.sessionId = xmldoc.getElementsByTagName('session')[0].attributes['id'].value
 
@@ -38,13 +37,15 @@ class API(object):
         url = "https://adeweb.univ-lorraine.fr/jsp/webapi?sessionId="+self.sessionId+"&function=getResources&detail=0"
 
         request = Request(url)
+        resources = urlopen(request).read()
 
-        return request
+        return resources
 
     def get_activities(self):
         url = "https://adeweb.univ-lorraine.fr/jsp/webapi?sessionId="+self.sessionId+"&function=getActivities&detail=17"
 
         request = Request(url)
+        activities = urlopen(request).read()
 
-        return request
+        return activities
 
