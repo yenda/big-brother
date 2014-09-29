@@ -24,9 +24,7 @@ def update_resources(self):
     api.connect()
     api.set_project()
     path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'resources.xml')
-    with open(path, "r") as f:
-        resources = f.read().encode(encoding='ANSI_X3.4-1968')
-        xml.sax.parseString(resources, SaxParsingResources())
+    xml.sax.parse(path, SaxParsingResources())
     api.disconnect()
     return redirect(reverse('admin:index'))
 
@@ -45,9 +43,7 @@ def update_activities(self):
     api.connect()
     api.set_project()
     path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'activities.xml')
-    with open(path, "r") as f:
-        activities = f.read().encode(encoding='ANSI_X3.4-1968')
-        xml.sax.parseString(activities, SaxParsingActivities())
+    xml.sax.parse(path, SaxParsingActivities())
     api.disconnect()
     return redirect(reverse('admin:index'))
 
