@@ -4,8 +4,10 @@ __author__ = 'yenda'
 from xml.dom.minidom import parse
 from urllib.request import urlopen, Request
 
+from .api import GenericApi
 
-class API(object):
+
+class API(GenericApi):
     sessionId = None
 
     #connects to the adeweb API
@@ -49,3 +51,12 @@ class API(object):
 
         return activities
 
+    def write_resources(self):
+        resources = self.get_resources()
+        with open("resources.xml", 'wb') as f:
+            f.write(resources)
+
+    def write_activities(self):
+        activities = self.get_activities()
+        with open("activities.xml", 'wb') as f:
+            f.write(activities)

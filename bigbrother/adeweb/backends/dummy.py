@@ -2,17 +2,10 @@ __author__ = 'yenda'
 
 import os
 
+from .api import GenericApi
 
-class API(object):
-    def connect(self):
-        pass
 
-    def disconnect(self):
-        pass
-
-    def set_project(self):
-        pass
-
+class API(GenericApi):
     def get_activities(self):
         path = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../activities.xml')
         with open(path, "r") as f:

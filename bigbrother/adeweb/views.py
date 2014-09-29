@@ -25,7 +25,7 @@ def update_resources(self):
     api = load_api()
     api.connect()
     api.set_project()
-    write_resources(self)
+    api.write_resources(self)
     path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'resources.xml')
     xml.sax.parse(path, SaxParsingResources())
     api.disconnect()
@@ -33,31 +33,15 @@ def update_resources(self):
 
 
 @staff_member_required
-def write_resources(self):
-    api = load_api()
-    resources = api.get_resources()
-    with open("resources.xml", 'w') as f:
-        f.write(resources)
-
-
-@staff_member_required
 def update_activities(self):
     api = load_api()
     api.connect()
     api.set_project()
-    write_activities(self)
+    api.write_activities(self)
     path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'activities.xml')
     xml.sax.parse(path, SaxParsingActivities())
     api.disconnect()
     return redirect(reverse('admin:index'))
-
-
-@staff_member_required
-def write_activities(self):
-    api = load_api()
-    activities = api.get_activities()
-    with open("activities.xml", 'w') as f:
-        f.write(activities)
 
 
 def delete_all(cls):

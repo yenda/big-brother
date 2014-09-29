@@ -15,4 +15,30 @@ def load_api():
     return cls()
 
 
+class GenericApi(object):
+    sessionId = None
+
+    #connects to the adeweb API
+    #sets self.sessionId
+    def connect(self):
+        pass
+
+    def disconnect(self):
+        pass
+
+    def set_project(self):
+        pass
+
+    def get_resources(self):
+        pass
+
+    def get_activities(self):
+        pass
+
+    def write_resources(self):
+        pass
+
+    def write_activities(self):
+        pass
+
 
