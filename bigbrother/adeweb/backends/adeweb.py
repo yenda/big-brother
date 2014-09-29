@@ -2,12 +2,8 @@ __author__ = 'yenda'
 #TODO this file should use a config file instead of hard coded values
 
 from xml.dom.minidom import parse
-try:
-    # For Python 3.0 and later
-    from urllib.request import urlopen
-except ImportError:
-    # Fall back to Python 2's urllib2
-    from urllib2 import urlopen
+from urllib3.request import urlopen
+
 
 
 class API(object):
