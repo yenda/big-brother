@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from django.views.generic import TemplateView
 
 from adeweb import urls as adeweb
 from users import urls as accounts
@@ -21,5 +22,6 @@ urlpatterns = patterns('',
     url(r'^calendar/', include(calendar)),
     url(r'^institution/', include(institution)),
     url(r'^lectures/', include(lectures)),
+    url(r'^/$', TemplateView.as_view(template_name='home.html'), name='home'),
     url(r'^', include(home)),
 )
