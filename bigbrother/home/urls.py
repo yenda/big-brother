@@ -15,5 +15,5 @@ urlpatterns = patterns('',
     url(r'^about/$', TemplateView.as_view(template_name='about.html'), name="about"),
     url(r'^privacy/$', TemplateView.as_view(template_name='privacy.html'), name='privacy'),
     url(r'^terms/$', TemplateView.as_view(template_name='terms.html'), name='terms'),
-    url(r'^$', TemplateView.as_view(template_name='home.html'), name='home'),
+    url(r'^/$', TemplateView.as_view(template_name='home.html'), name='home'),
     )
