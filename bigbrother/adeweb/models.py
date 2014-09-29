@@ -11,7 +11,7 @@ def user_factory(username, adeweb_id, email=None):
         return user[0]
     else:
         username = username.title()
-        last_name, first_name = username.split()
+        last_name, first_name = username.split(' ', 1)
         username = '{0}.{1}'.format(first_name.lower(), last_name.lower())
         user = get_user_model().objects.create(username=username,
                                                password=make_password("password"),
