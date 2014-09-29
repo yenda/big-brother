@@ -55,12 +55,12 @@ class API(GenericApi):
 
     def write_resources(self):
         resources = self.get_resources()
-        path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'resources.xml')
+        path = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../resources.xml')
         with open(path, 'wb') as f:
             f.write(resources)
 
     def write_activities(self):
         activities = self.get_activities()
-        path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'activities.xml')
+        path = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../activities.xml')
         with open(path, 'wb') as f:
             f.write(activities)
