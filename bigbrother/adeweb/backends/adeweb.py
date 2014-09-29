@@ -33,7 +33,7 @@ class API(GenericApi):
         return self.sessionId
 
     def set_project(self):
-        url = "https://adeweb.univ-lorraine.fr/jsp/webapi?sessionId="+self.sessionId+"&function=setProject&projectId=9"
+        url = "https://adeweb.univ-lorraine.fr/jsp/webapi?sessionId="+self.sessionId+"&function=setProject&projectId=13"
         request = Request(url)
         response = urlopen(request)
 
