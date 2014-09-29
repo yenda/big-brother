@@ -11,15 +11,17 @@ class API(object):
     #connects to the adeweb API
     #sets self.sessionId
     def connect(self):
-        url = b"https://adeweb.univ-lorraine.fr/jsp/webapi?function=connect&login=ade_projet_etu&password=;projet_2014"
-        response = urlopen(url)
+        url = "https://adeweb.univ-lorraine.fr/jsp/webapi?function=connect&login=ade_projet_etu&password=;projet_2014"
+        request = Request(url)
+        response = urlopen(request)
 
         xmldoc = parse(response)
         self.sessionId = xmldoc.getElementsByTagName('session')[0].attributes['id'].value
 
     def disconnect(self):
-        url = b"https://adeweb.univ-lorraine.fr/jsp/webapi?sessionId="+self.sessionId+"&function=disconnect"
-        response = urlopen(url)
+        url = "https://adeweb.univ-lorraine.fr/jsp/webapi?sessionId="+self.sessionId+"&function=disconnect"
+        request = Request(url)
+        response = urlopen(request)
 
         xmldoc = parse(response)
         if xmldoc.getElementsByTagName('disconnected')[0].attributes['sessionId'].value == self.sessionId:
@@ -29,7 +31,8 @@ class API(object):
 
     def set_project(self):
         url = "https://adeweb.univ-lorraine.fr/jsp/webapi?sessionId="+self.sessionId+"&function=setProject&projectId=9"
-        response = urlopen(url)
+        request = Request(url)
+        response = urlopen(request)
 
     def get_resources(self):
         url = "https://adeweb.univ-lorraine.fr/jsp/webapi?sessionId="+self.sessionId+"&function=getResources&detail=0"
