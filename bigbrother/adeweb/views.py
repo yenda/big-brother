@@ -7,6 +7,7 @@ from .parser import SaxParsingActivities, SaxParsingResources
 from django.shortcuts import redirect
 from django.core.urlresolvers import reverse
 from django.conf import settings
+from django.contrib.admin.views.decorators import staff_member_required
 
 import xml
 
@@ -16,6 +17,7 @@ from lectures.models import Lecture
 from institution.models import Classroom, Membership
 
 
+@staff_member_required
 def update_resources(self):
     api = load_api()
     api.connect()
@@ -26,6 +28,7 @@ def update_resources(self):
     return redirect(reverse('admin:index'))
 
 
+@staff_member_required
 def write_resources(self):
     api = load_api()
     resources = api.get_resources()
@@ -33,6 +36,7 @@ def write_resources(self):
         f.write(resources)
 
 
+@staff_member_required
 def update_activities(self):
     api = load_api()
     api.connect()
@@ -43,6 +47,7 @@ def update_activities(self):
     return redirect(reverse('admin:index'))
 
 
+@staff_member_required
 def write_activities(self):
     api = load_api()
     activities = api.get_activities()
@@ -50,12 +55,14 @@ def write_activities(self):
         f.write(activities)
 
 
+@staff_member_required
 def delete_all(cls):
     query_set = cls.objects.only("pk")  # No ordering, pull the least info possible.
     for item in query_set:
         item.delete()
 
 
+@staff_member_required
 def delete_data(self):
     delete_all(Membership)
     delete_all(Classroom)
