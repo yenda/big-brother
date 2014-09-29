@@ -5,13 +5,11 @@ from django.views.generic.edit import CreateView
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-
-from datetime import timedelta, date
+from django.utils.decorators import method_decorator
 
 from .models import Event
 
 
-@login_required
 class CalendarView(TemplateView):
     template_name = 'calendar/calendar.html'
 
@@ -21,6 +19,9 @@ class CalendarView(TemplateView):
         context['events'] = Event.objects.filter(teacher=self.request.user, memberships_students=self.request.user)
         return context
 
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(CalendarView, self).dispatch(*args, **kwargs)
 
 class EventView(TemplateView):
     template_name = 'calendar/event.html'
