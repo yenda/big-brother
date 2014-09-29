@@ -21,7 +21,7 @@ class CalendarView(TemplateView):
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
-        return super(CalendarView, self).dispatch(*args, **kwargs)
+        return super(CalendarView, self).dispatch(request, *args, **kwargs)
 
 
 class EventView(TemplateView):
