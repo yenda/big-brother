@@ -28,7 +28,7 @@ class API(object):
 
     def set_project(self):
         url = "https://adeweb.univ-lorraine.fr/jsp/webapi?sessionId="+self.sessionId+"&function=setProject&projectId=9"
-        response = urlopen(url)
+        response = urlopen(url).read()
 
         project = response.read()
         return project
