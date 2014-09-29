@@ -23,7 +23,7 @@ def update_resources(self):
     api.connect()
     api.set_project()
     resources = api.get_resources()
-    xml.sax.parseString(resources.encode('utf-8'), SaxParsingResources())
+    xml.sax.parseString(resources.decode('utf-8'), SaxParsingResources())
     api.disconnect()
     return redirect(reverse('admin:index'))
 
@@ -42,7 +42,7 @@ def update_activities(self):
     api.connect()
     api.set_project()
     activities = api.get_activities()
-    xml.sax.parseString(activities.encode('utf-8'), SaxParsingActivities())
+    xml.sax.parseString(activities.decode('utf-8'), SaxParsingActivities())
     api.disconnect()
     return redirect(reverse('admin:index'))
 
@@ -62,7 +62,6 @@ def delete_all(cls):
         item.delete()
 
 
-@staff_member_required
 def delete_data(self):
     delete_all(Membership)
     delete_all(Classroom)
