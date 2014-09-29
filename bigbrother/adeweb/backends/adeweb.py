@@ -5,7 +5,6 @@ from xml.dom.minidom import parse
 from urllib.request import urlopen
 
 
-
 class API(object):
     sessionId = None
 
@@ -13,13 +12,13 @@ class API(object):
     #sets self.sessionId
     def connect(self):
         url = "https://adeweb.univ-lorraine.fr/jsp/webapi?function=connect&login=ade_projet_etu&password=;projet_2014"
-        response = urlopen(url)
+        response = urlopen(url).read()
         xmldoc = parse(response)
         self.sessionId = xmldoc.getElementsByTagName('session')[0].attributes['id'].value
 
     def disconnect(self):
         url = "https://adeweb.univ-lorraine.fr/jsp/webapi?sessionId="+self.sessionId+"&function=disconnect"
-        response = urlopen(url)
+        response = urlopen(url).read()
 
         xmldoc = parse(response)
         if xmldoc.getElementsByTagName('disconnected')[0].attributes['sessionId'].value == self.sessionId:
