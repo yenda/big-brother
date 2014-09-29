@@ -4,7 +4,9 @@
 
 {% block content %}
 
-<h1><a href={% url "lecture" lecture.pk %}>Absences in {{ lecture.name }}</a></h1>
+<div class="page-header">
+    <h1>Feuilles d'absences en <a href={% url "lecture" lecture.pk %}>{{ lecture.name }}</a></h1>
+</div>
 
 
 <div style="text-align: center">

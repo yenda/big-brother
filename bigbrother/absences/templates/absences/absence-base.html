@@ -3,6 +3,8 @@
 {% load static from staticfiles %}
 
 {% block content %}
+
+<div class="page-header">
 <h1>Feuille d'appel : <a href="{% url 'lecture' event.lecture.pk %}">{{ event.lecture.name }}</a></h1>
         <h2>
             <small>
@@ -10,6 +12,8 @@
                 salles : {% for classroom in event.classrooms.all %}{{ classroom.name }} | {% endfor %}
             </small>
         </h2>
+</div>
+
 
 <h3>Enseignants :</h3>
 <ul>
