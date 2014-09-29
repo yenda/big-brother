@@ -11,14 +11,14 @@ class API(object):
     #connects to the adeweb API
     #sets self.sessionId
     def connect(self):
-        url = "https://adeweb.univ-lorraine.fr/jsp/webapi?function=connect&login=ade_projet_etu&password=;projet_2014"
+        url = b"https://adeweb.univ-lorraine.fr/jsp/webapi?function=connect&login=ade_projet_etu&password=;projet_2014"
         response = urlopen(url)
 
         xmldoc = parse(url)
         self.sessionId = xmldoc.getElementsByTagName('session')[0].attributes['id'].value
 
     def disconnect(self):
-        url = "https://adeweb.univ-lorraine.fr/jsp/webapi?sessionId="+self.sessionId+"&function=disconnect"
+        url = b"https://adeweb.univ-lorraine.fr/jsp/webapi?sessionId="+self.sessionId+"&function=disconnect"
         response = urlopen(url)
 
         xmldoc = parse(url)
