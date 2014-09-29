@@ -21,5 +21,5 @@ urlpatterns = patterns('',
     url(r'^calendar/', include(calendar)),
     url(r'^institution/', include(institution)),
     url(r'^lectures/', include(lectures)),
-    url(r'', include(home)),
+    url(r'^', include(home)),
 )
