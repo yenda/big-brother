@@ -12,8 +12,8 @@ urlpatterns = patterns('',
                        url(r'^password_change_done/$',
                            auth_views.password_change_done, name="password_change_done"),
                        url(r'^profile/$', ProfileView.as_view(), name="profile"),
-                       url(r'^teacher/(?P<teacher>[\w]+)', TeacherView.as_view(), name='teacher'),
-                       url(r'^student/(?P<student>[\w]+)', StudentView.as_view(), name='student'),
+                       url(r'^teacher/(?P<teacher>[\w]+)/', TeacherView.as_view(), name='teacher'),
+                       url(r'^student/(?P<student>[\w]+)/', StudentView.as_view(), name='student'),
                        )
 
 

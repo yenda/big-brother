@@ -21,11 +21,11 @@ ABS_DIR = os.path.abspath(os.path.dirname(__file__))
 SECRET_KEY = 'dy_xi1$zsm^#zdw5a#vff-az^72x+e09@)5tmflxvc!ro-(&1v'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*', ]
 
 
 # Application definition
@@ -40,6 +40,7 @@ INSTALLED_APPS = (
 
     # External applications.
     'bootstrap3',
+    'storages',
 
     # Project applications.
     'home',
@@ -108,3 +109,15 @@ ADEWEB_API = {
 }
 
 AUTH_USER_MODEL = 'users.User'
+
+if not DEBUG:
+    AWS_STORAGE_BUCKET_NAME = 'big-brother-tn'
+    STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+    S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+    STATIC_URL = S3_URL
+
+# Override settings with local settings.
+try:
+    from settings_local import *
+except ImportError:
+    pass

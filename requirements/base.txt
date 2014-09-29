@@ -1,5 +1,7 @@
 Django==1.7
 django-bootstrap3==4.2.0
 django-choices==1.1.12
+django-storages
+boto
 Sphinx
 
