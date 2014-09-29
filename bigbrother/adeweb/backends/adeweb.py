@@ -39,7 +39,7 @@ class API(object):
 
         request = Request(url)
         response = urlopen(request)
-        source = response.read()
+        source = response
 
         return source
 
@@ -48,6 +48,6 @@ class API(object):
 
         request = Request(url)
         response = urlopen(request)
-        source = response.read()
+        source = response
 
         return source
