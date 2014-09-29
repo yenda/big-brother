@@ -58,13 +58,13 @@ def write_activities(self):
         f.write(activities)
 
 
-@staff_member_required
 def delete_all(cls):
     query_set = cls.objects.only("pk")  # No ordering, pull the least info possible.
     for item in query_set:
         item.delete()
 
 
+@staff_member_required
 def delete_data(self):
     delete_all(Membership)
     delete_all(Classroom)
