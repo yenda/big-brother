@@ -23,7 +23,7 @@ def update_resources(self):
     api.connect()
     api.set_project()
     resources = api.get_resources()
-    xml.sax.parse(resources, SaxParsingResources())
+    xml.sax.parseString(resources, SaxParsingResources())
     api.disconnect()
     return redirect(reverse('admin:index'))
 
@@ -42,7 +42,7 @@ def update_activities(self):
     api.connect()
     api.set_project()
     activities = api.get_activities()
-    xml.sax.parse(activities, SaxParsingActivities())
+    xml.sax.parseString(activities, SaxParsingActivities())
     api.disconnect()
     return redirect(reverse('admin:index'))
 
