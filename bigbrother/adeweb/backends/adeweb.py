@@ -14,7 +14,7 @@ class API(object):
         url = "https://adeweb.univ-lorraine.fr/jsp/webapi?function=connect&login=ade_projet_etu&password=;projet_2014"
         response = urlopen(url)
 
-        xmldoc = parse(url)
+        xmldoc = parse(response)
         self.sessionId = xmldoc.getElementsByTagName('session')[0].attributes['id'].value
 
     def disconnect(self):
