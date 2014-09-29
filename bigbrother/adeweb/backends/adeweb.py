@@ -2,7 +2,7 @@ __author__ = 'yenda'
 #TODO this file should use a config file instead of hard coded values
 
 from xml.dom.minidom import parse
-from urllib.request import urlopen
+from urllib.request import urlopen, Request
 
 
 class API(object):
@@ -36,14 +36,18 @@ class API(object):
 
     def get_resources(self):
         url = "https://adeweb.univ-lorraine.fr/jsp/webapi?sessionId="+self.sessionId+"&function=getResources&detail=0"
-        response = urlopen(url)
 
-        source = response.read()
+        request = Request(url)
+        response = urlopen(request)
+        source = response.read().decode('utf-8')
+
         return source
 
     def get_activities(self):
         url = "https://adeweb.univ-lorraine.fr/jsp/webapi?sessionId="+self.sessionId+"&function=getActivities&detail=17"
-        response = urlopen(url)
 
-        source = response.read()
+        request = Request(url)
+        response = urlopen(request)
+        source = response.read().decode('utf-8')
+        
         return source
