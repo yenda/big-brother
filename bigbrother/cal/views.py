@@ -4,19 +4,21 @@ from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
 
 from datetime import timedelta, date
 
 from .models import Event
 
 
+@login_required
 class CalendarView(TemplateView):
     template_name = 'calendar/calendar.html'
 
     def get_context_data(self, **kwargs):
         context = super(CalendarView, self).get_context_data(**kwargs)
-        context['today'] = Event.objects.filter(start__gt=date.today(), start__lte=date.today() + timedelta(days=1))
-        context['events'] = Event.objects.filter()
+        #context['today'] = Event.objects.filter(start__gt=date.today(), start__lte=date.today() + timedelta(days=1))
+        context['events'] = Event.objects.filter(teacher=self.request.user, memberships_students=self.request.user)
         return context
 
 
