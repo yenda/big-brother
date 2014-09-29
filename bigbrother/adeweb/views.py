@@ -1,3 +1,5 @@
+from django.contrib.auth import get_user_model
+
 __author__ = 'yenda'
 
 #TODO :This file should contain real views with a form to only validate the action once the password of the user is entered otherwise this will lead to problems in the future
@@ -69,7 +71,7 @@ def delete_data(self):
     delete_all(Membership)
     delete_all(Classroom)
     delete_all(Event)
-    delete_all(settings.AUTH_USER_MODEL)
+    delete_all(get_user_model())
     delete_all(Lecture)
     delete_all(Absence)
     return redirect(reverse('admin:index'))
