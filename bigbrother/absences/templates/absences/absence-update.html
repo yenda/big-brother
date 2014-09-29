@@ -8,9 +8,9 @@
         {% bootstrap_form form %}
         {% buttons %}
             <button type="submit" class="btn btn-primary">
-                {% bootstrap_icon "star" %} Submit
+                {% bootstrap_icon "star" %} Enregistrer
             </button>
-            <a class="btn btn-danger" href="{% url "absence-delete" absence.pk %}" >{% bootstrap_icon "trash" %} Delete</a>
+            <a class="btn btn-danger" href="{% url "absence-delete" absence.pk %}" >{% bootstrap_icon "trash" %} Supprimer</a>
         {% endbuttons %}
     </form>
 {% endblock subcontent %}

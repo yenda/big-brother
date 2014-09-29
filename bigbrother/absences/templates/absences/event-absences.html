@@ -4,7 +4,7 @@
 
 {% block subcontent %}
     {% if event.report %}
-        <h3>List of absentees for this class : </h3>
+        <h3>Liste des absences : </h3>
         <div class="col-md-12">
         Total : {{ absences.count }}
         </div>
@@ -16,17 +16,17 @@
                     <img src="{% static absence.student.image_url %}">
                     <br>{{ absence.student.first_name }} {{ absence.student.last_name }}
                     {% if absence.excused %}
-                        (<span style="color: green">EXCUSED</span>)
+                        (<span style="color: green">EXCUSE</span>)
                     {% endif %}
                 </a>
             </div>
         {% empty %}
-            There was no absentees during this class
+            Pas d'absences pour ce cours
         {% endfor %}
 
     {% else %}
-        <h2>No report for this event</h2>
-        <a class="btn btn-danger" href="{% url "event-create-report" event.pk %}" >{% bootstrap_icon "bullhorn"%} Create a report for this event</a>
+        <h2>Pas de feuille d'absence pour ce cours</h2>
+        <a class="btn btn-danger" href="{% url "event-create-report" event.pk %}" >{% bootstrap_icon "bullhorn"%} Faire l'appel</a>
 
     {% endif %}
 {% endblock subcontent %}

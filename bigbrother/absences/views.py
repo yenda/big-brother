@@ -1,13 +1,13 @@
-from django.contrib.auth import get_user_model
-
 __author__ = 'yenda'
 
 from django.views.generic import FormView, TemplateView
 from django.views.generic.edit import UpdateView, DeleteView
-
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.utils.functional import cached_property
 from django.core.urlresolvers import reverse
+from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 from datetime import datetime
 
@@ -33,6 +33,17 @@ class EventMixin(object):
         return context
 
 
+class RestrictedEventMixin(EventMixin):
+    """
+        Restricted view : teachers in self.event.lecture and admins only
+    """
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_superuser and not self.request.user.is_teacher_in(self.event.lecture):
+            return redirect('event-report', self.event.pk)
+        return super(RestrictedEventMixin, self).dispatch(*args, **kwargs)
+
+
 class EventReportView(EventMixin, TemplateView):
     template_name = 'absences/event-absences.html'
     success_url = "/"
@@ -43,7 +54,10 @@ class EventReportView(EventMixin, TemplateView):
         return context
 
 
-class EventCreateReportView(EventMixin, FormView):
+class EventCreateReportView(RestrictedEventMixin, FormView):
+    """
+        Restricted view : teachers in self.event.lecture and admins only
+    """
     template_name = 'absences/event-create-absences.html'
     form_class = ReportForm
     success_url = "/"
@@ -65,7 +79,7 @@ class EventCreateReportView(EventMixin, FormView):
         return reverse('event-report', args=(pk,))
 
 
-class AbsenceUpdateView(EventMixin, UpdateView):
+class AbsenceUpdateView(RestrictedEventMixin, UpdateView):
     template_name = "absences/absence-update.html"
     fields = ["excuse", ]
     model = Absence
@@ -76,7 +90,7 @@ class AbsenceUpdateView(EventMixin, UpdateView):
         return reverse('event-report', args=(absence.event.pk,))
 
 
-class AbsenceDeleteView(EventMixin, DeleteView):
+class AbsenceDeleteView(RestrictedEventMixin, DeleteView):
     template_name = "absences/absence-delete.html"
     model = Absence
 

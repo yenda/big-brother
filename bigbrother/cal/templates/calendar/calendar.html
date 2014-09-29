@@ -41,7 +41,7 @@
 				{
                     id: '{{ event.pk }}',
 					title: '{{ event.lecture.name }}\n{% for teacher in event.teachers.all %}{{ teacher.get_full_name }} {% endfor %}\n{% for classroom in event.classrooms.all %}{{ classroom.name }} {% endfor %}',
-					url: '{% url "lecture" event.lecture.pk %}',
+					url: '{% if user.is_teacher %}{% url "event" event.pk %}{% else %}{% url "lecture" event.lecture.pk %}{% endif %}',
 					start: '{{ event.start|date:"c" }}',
                     end: '{{ event.end|date:"c" }}'
 				},

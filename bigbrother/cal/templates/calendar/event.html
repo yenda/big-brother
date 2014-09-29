@@ -18,9 +18,9 @@
 
     {% if user.is_teacher %}
         {% if event.report %}
-            <a class="btn btn-danger" href={% url "event-report" event.pk %}><span class="glyphicon glyphicon-bullhorn"></span> Edit absences</a>
+            <a class="btn btn-danger" href={% url "event-report" event.pk %}><span class="glyphicon glyphicon-bullhorn"></span> Editer la feuille d'appel</a>
         {% else %}
-            <a class="btn btn-danger" href={% url "event-create-report" event.pk %}><span class="glyphicon glyphicon-bullhorn"></span> Make a report for absences</a>
+            <a class="btn btn-danger" href={% url "event-create-report" event.pk %}><span class="glyphicon glyphicon-bullhorn"></span> Faire l'appel</a>
         {% endif %}
     {% endif %}
 </h1>

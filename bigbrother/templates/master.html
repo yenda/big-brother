@@ -41,18 +41,27 @@
             </div>
             <div class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
-                <li class="active"><a href="/">Home</a></li>
-                <li><a href={% url 'search' %}><span class="glyphicon glyphicon-search"></span> Search</a></li>
+                <li><a href="/">Accueil</a></li>
                 {% if user.is_authenticated %}
-                    <li><a href={% url 'calendar' %}><span class="glyphicon glyphicon-calendar"></span> My Schedule</a></li>
-                        <li><a href={% url 'lectures' %}><span class="glyphicon glyphicon-book"></span> My Lectures</a></li>
-                    {% if not user.is_teacher %}
-                        <li><a href={% url 'absence-student' user.pk %}><span class="glyphicon glyphicon-inbox"></span> My Absences</a></li>
-                    {% endif %}
-                    <li><a href="{% url "profile" %}">Welcome {{ user.username }}</a></li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu <span class="caret"></span></a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href={% url 'calendar' %}><span class="glyphicon glyphicon-calendar"></span>&nbsp&nbspCalendrier</a></li>
+                            <li><a href={% url 'lectures' %}><span class="glyphicon glyphicon-book"></span>&nbsp&nbspCours</a></li>
+                        {% if not user.is_teacher %}
+                            <li><a href={% url 'absence-student' user.pk %}><span class="glyphicon glyphicon-inbox"></span>&nbsp&nbspAbsences</a></li>
+                        {% endif %}
+                      </ul>
+                    </li>
+                <li><a href={% url 'search' %}><span class="glyphicon glyphicon-search"></span> Recherche</a></li>
+
+
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{% url "profile" %}">Welcome {{ user.first_name }}</a></li>
                     <li><a href={% url 'logout' %}>Logout</a></li>
                 {% else %}
-                    <li><a href={% url 'login' %}>Login</a></li>
+                    <li class="right"><a href="{% url 'login' %}">Login</a></li>
                 {% endif %}
               </ul>
             </div><!--/.nav-collapse -->
@@ -73,6 +82,7 @@
           </div>
         </footer>
 
+        {% bootstrap_javascript %}
         {% block extra_js %}{% endblock %}
     </body>
 </html>
