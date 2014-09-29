@@ -41,7 +41,7 @@ class API(object):
         response = urlopen(request)
         source = response.read()
 
-        return str(source)
+        return source
 
     def get_activities(self):
         url = "https://adeweb.univ-lorraine.fr/jsp/webapi?sessionId="+self.sessionId+"&function=getActivities&detail=17"
@@ -50,4 +50,4 @@ class API(object):
         response = urlopen(request)
         source = response.read()
 
-        return str(source)
+        return source
