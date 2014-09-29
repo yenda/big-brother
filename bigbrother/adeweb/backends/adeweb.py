@@ -13,6 +13,7 @@ class API(object):
     def connect(self):
         url = "https://adeweb.univ-lorraine.fr/jsp/webapi?function=connect&login=ade_projet_etu&password=;projet_2014"
         response = urlopen(url).read()
+
         xmldoc = parse(response)
         self.sessionId = xmldoc.getElementsByTagName('session')[0].attributes['id'].value
 
@@ -28,7 +29,7 @@ class API(object):
 
     def set_project(self):
         url = "https://adeweb.univ-lorraine.fr/jsp/webapi?sessionId="+self.sessionId+"&function=setProject&projectId=9"
-        response = urlopen(url).read()
+        response = urlopen(url)
 
         project = response.read()
         return project
