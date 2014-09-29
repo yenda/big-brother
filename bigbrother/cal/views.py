@@ -23,6 +23,7 @@ class CalendarView(TemplateView):
     def dispatch(self, request, *args, **kwargs):
         return super(CalendarView, self).dispatch(*args, **kwargs)
 
+
 class EventView(TemplateView):
     template_name = 'calendar/event.html'
 
