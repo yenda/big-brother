@@ -2,7 +2,7 @@ __author__ = 'yenda'
 #TODO this file should use a config file instead of hard coded values
 
 from xml.dom.minidom import parse
-from urllib3.request import urlopen
+from urllib.request import urlopen
 
 
 
