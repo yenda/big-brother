@@ -23,7 +23,7 @@ def update_resources(self):
     api = load_api()
     api.connect()
     api.set_project()
-    path = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../activities.xml')
+    path = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../resources.xml')
     with open(path, "r") as f:
         resources = f.read()
         resources = resources.encode('utf-8')
