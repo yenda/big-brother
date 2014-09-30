@@ -21,7 +21,7 @@ ABS_DIR = os.path.abspath(os.path.dirname(__file__))
 SECRET_KEY = 'dy_xi1$zsm^#zdw5a#vff-az^72x+e09@)5tmflxvc!ro-(&1v'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 TEMPLATE_DEBUG = True
 
@@ -40,7 +40,6 @@ INSTALLED_APPS = (
 
     # External applications.
     'bootstrap3',
-    'storages',
 
     # Project applications.
     'home',
@@ -91,11 +90,6 @@ USE_L10N = True
 USE_TZ = False
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.7/howto/static-files/
-
-STATIC_URL = '/static/'
-
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
@@ -110,12 +104,10 @@ ADEWEB_API = {
 
 AUTH_USER_MODEL = 'users.User'
 
-if not DEBUG:
-    AWS_STORAGE_BUCKET_NAME = 'big-brother-tn'
-    STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-    S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
-    STATIC_URL = S3_URL
-    ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
+AWS_STORAGE_BUCKET_NAME = 'big-brother-tn'
+S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+STATIC_URL = S3_URL
+ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
 # Override settings with local settings.
 try:
