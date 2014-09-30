@@ -1,3 +1,9 @@
+Configuration
+=============
+
+This projects requires a python version >= 3.4 and Django >= 1.7 to work.
+
+
 Project layout
 ==============
 
